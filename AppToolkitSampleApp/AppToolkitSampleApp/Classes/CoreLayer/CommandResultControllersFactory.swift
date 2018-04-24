@@ -74,75 +74,75 @@ class CommandExecutor {
 	static let shared: CommandExecutor = CommandExecutor()
 	private init() { }
 	
-	lazy var remote: CommandLibrary = CommandLibrary()
+	lazy var remote: CommandRequester = CommandRequester()
 	
     @discardableResult
-	func executeGetConfigCommand(completion: CommandLibrary.GetConfigClosure?) -> TransactionId? {
+	func executeGetConfigCommand(completion: CommandRequester.GetConfigClosure?) -> TransactionId? {
 		return remote.getConfiguration(completion: completion)
 	}
 	
     @discardableResult
-    func executeSetConfigCommand(_ options: SetConfigOptionsProtocol, completion: CommandLibrary.SetConfigClosure?) -> TransactionId? {
+    func executeSetConfigCommand(_ options: SetConfigOptionsProtocol, completion: CommandRequester.SetConfigClosure?) -> TransactionId? {
         return remote.setConfiguration(options, completion: completion)
     }
 
     @discardableResult
-	func executeTakeVideoCommand(callback: CommandLibrary.TakeVideoClosure?) -> TransactionId? {
+	func executeTakeVideoCommand(callback: CommandRequester.TakeVideoClosure?) -> TransactionId? {
         return remote.takeVideo(duration: 1.0, completion: callback)
 	}
 	
 	func cancelCommand(transactionId: String,
-	                   completion: CommandLibrary.CompletionHandler?) {
+	                   completion: CommandRequester.CompletionHandler?) {
 		remote.cancel(transactionId: transactionId, completion: completion)
 	}
 	
-    func executeLookAtCommand(lookAt: LookAtType, callback: CommandLibrary.LookAtClosure?) -> TransactionId? {
+    func executeLookAtCommand(lookAt: LookAtType, callback: CommandRequester.LookAtClosure?) -> TransactionId? {
         return remote.lookAt(targetType: lookAt.targetType, trackFlag: false, levelHeadFlag: false, completion: callback)
 	}
 	
 	func executeSayCommand(phrase: String,
-                           completion: CommandLibrary.SayClosure?) -> TransactionId? {
+                           completion: CommandRequester.SayClosure?) -> TransactionId? {
 		return remote.say(phrase: phrase, completion: completion)
 	}
 	
-	func executeGetFaceEntity(callback: CommandLibrary.TrackedEntityClosure?) -> TransactionID? {
+	func executeGetFaceEntity(callback: CommandRequester.TrackedEntityClosure?) -> TransactionID? {
         return remote.getFaceEntity(completion: callback)
 	}
     
-    func executeTakePhotoCommand(camera: Camera = .left, resolution: CameraResolution = .medium, distortion: Bool = true, callback: CommandLibrary.TakePhotoClosure?) -> TransactionId? {
+    func executeTakePhotoCommand(camera: Camera = .left, resolution: CameraResolution = .medium, distortion: Bool = true, callback: CommandRequester.TakePhotoClosure?) -> TransactionId? {
         return remote.takePhoto(camera: camera, resolution: resolution, distortion: distortion, completion: callback)
     }
     
-    func executeDisplayEye(_ view: String, callback: CommandLibrary.DisplayClosure?) -> TransactionID? {
+    func executeDisplayEye(_ view: String, callback: CommandRequester.DisplayClosure?) -> TransactionID? {
         return remote.displayEye(in: view, completion: callback)
     }
 
-    func executeDisplayText(_ text: String, in view: String, callback: CommandLibrary.DisplayClosure?) -> TransactionID? {
+    func executeDisplayText(_ text: String, in view: String, callback: CommandRequester.DisplayClosure?) -> TransactionID? {
         return remote.displayText(text, in: view, completion: callback)
     }
 
-    func executeDisplayImage(_ image: ImageData, in view: String, callback: CommandLibrary.DisplayClosure?) -> TransactionID? {
+    func executeDisplayImage(_ image: ImageData, in view: String, callback: CommandRequester.DisplayClosure?) -> TransactionID? {
         return remote.displayImage(image, in: view, completion: callback)
     }
     
-    func executeGetMotion(callback: CommandLibrary.MotionClosure?) -> TransactionID? {
+    func executeGetMotion(callback: CommandRequester.MotionClosure?) -> TransactionID? {
         return remote.getMotion(completion: callback)
     }
 
-    func executeListenForSpeech(maxSpeechTimeOut: Timeout = 15, maxNoSpeechTimeout: Timeout = 15, languageCode: LangCode = .enUS, callback: CommandLibrary.ListenClosure?) -> TransactionID? {
+    func executeListenForSpeech(maxSpeechTimeOut: Timeout = 15, maxNoSpeechTimeout: Timeout = 15, languageCode: LangCode = .enUS, callback: CommandRequester.ListenClosure?) -> TransactionID? {
         return remote.listenForSpeech(maxSpeechTimeOut: maxSpeechTimeOut, maxNoSpeechTimeout: maxNoSpeechTimeout, languageCode: languageCode, completion: callback)
     }
 
-    func executeListenForHeadTouch(callback: CommandLibrary.HeadTouchClosure?) -> TransactionID? {
+    func executeListenForHeadTouch(callback: CommandRequester.HeadTouchClosure?) -> TransactionID? {
         return remote.listenForHeadTouch(completion:callback)
     }
 
     @discardableResult
-    func executeFetchAsset(_ uri: String, name: String, callback: CommandLibrary.FetchAssetClosure?) -> TransactionID? {
+    func executeFetchAsset(_ uri: String, name: String, callback: CommandRequester.FetchAssetClosure?) -> TransactionID? {
         return remote.fetchAssetWithURI(uri, name: name, completion: callback)
     }
 
-    func executeListenForScreenGesture(_ params: ScreenGestureListenParams, callback: CommandLibrary.ScreenGestureClosure?) -> TransactionID? {
+    func executeListenForScreenGesture(_ params: ScreenGestureListenParams, callback: CommandRequester.ScreenGestureClosure?) -> TransactionID? {
         return remote.listenForScreenGesture(params, completion: callback)
     }
     

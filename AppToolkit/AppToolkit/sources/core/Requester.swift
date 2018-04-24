@@ -10,8 +10,8 @@ import Foundation
 import PromiseKit
 import ObjectMapper
 
-protocol CommandRequester {
-    typealias CommandCallback = CommandLibraryInterface.CallbackClosure
+protocol CommandRequestProtocol {
+    typealias CommandCallback = CommandRequesterInterface.CallbackClosure
 
     func getSessionId() -> String?
     
@@ -135,7 +135,7 @@ class Requester {
 }
 
 // MARK: - CommandRequester
-extension Requester: CommandRequester {
+extension Requester: CommandRequestProtocol {
     func connect() -> Promise<Bool> {
         return Promise { [weak self] (fulfill, reject) in
             self?.connectionManager.connect().then { success -> () in
@@ -338,7 +338,7 @@ extension Requester: CommandRequester {
         return CommandTransaction(transactionId: token.transactionId, tokenAcknowledged: tokenPromise)
     }
 
-    func getMotion(callback: CommandRequester.CommandCallback?) -> CommandTransaction<AppToolkit.Never> {
+    func getMotion(callback: CommandRequestProtocol.CommandCallback?) -> CommandTransaction<AppToolkit.Never> {
         guard let motionCommand = MotionRequest() else { return failedCommand }
         
         let token = MotionToken(motionCommand, transactionId: robotName.transactionId())
@@ -354,7 +354,7 @@ extension Requester: CommandRequester {
         return CommandTransaction(transactionId: token.transactionId, tokenAcknowledged: tokenPromise)
     }
     
-    func listenForSpeech(maxSpeechTimeOut: Timeout, maxNoSpeechTimeout: Timeout, languageCode: LangCode, callback: CommandRequester.CommandCallback?) -> CommandTransaction<Never> {
+    func listenForSpeech(maxSpeechTimeOut: Timeout, maxNoSpeechTimeout: Timeout, languageCode: LangCode, callback: CommandRequestProtocol.CommandCallback?) -> CommandTransaction<Never> {
         guard let listenCommand = ListenCommand(maxSpeechTimeOut: maxSpeechTimeOut, maxNoSpeechTimeout: maxNoSpeechTimeout, languageCode: languageCode) else { return failedCommand }
         
         let token = ListenToken(listenCommand, transactionId: robotName.transactionId())
@@ -370,7 +370,7 @@ extension Requester: CommandRequester {
         return CommandTransaction(transactionId: token.transactionId, tokenAcknowledged: tokenPromise)
     }
 
-    func listenForHeadTouch(callback: CommandRequester.CommandCallback?) -> CommandTransaction<Never> {
+    func listenForHeadTouch(callback: CommandRequestProtocol.CommandCallback?) -> CommandTransaction<Never> {
         guard let headTouchCommand = HeadTouchRequest() else { return failedCommand }
         
         let token = HeadTouchToken(headTouchCommand, transactionId: robotName.transactionId())
@@ -386,7 +386,7 @@ extension Requester: CommandRequester {
         return CommandTransaction(transactionId: token.transactionId, tokenAcknowledged: tokenPromise)
     }
     
-    func fetchAssetWithURI(_ uri: String, name: String, callback: CommandRequester.CommandCallback?) -> CommandTransaction<Never> {
+    func fetchAssetWithURI(_ uri: String, name: String, callback: CommandRequestProtocol.CommandCallback?) -> CommandTransaction<Never> {
         guard let fetchAssetCommand = FetchAssetCommand(uri: uri, name: name) else { return failedCommand }
         
         let token = FetchAssetToken(fetchAssetCommand, transactionId: robotName.transactionId())

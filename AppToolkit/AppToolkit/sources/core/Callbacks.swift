@@ -456,7 +456,7 @@ public struct HotWordInfo: Mappable {
 /**
  Main library for the Jibo Protocol
  */
-extension CommandLibraryInterface {
+extension CommandRequesterInterface {
     // MARK: - Closures
     /**
      Generic closure

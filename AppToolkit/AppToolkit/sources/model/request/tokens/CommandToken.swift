@@ -32,7 +32,7 @@ class CommandToken<T: BaseCommand, Result: Any>: CommandTokenProtocol {
     var command: T? = nil
     var transactionId: TransactionID? = nil
     var isComplete: Bool
-    internal var callback: CommandLibraryInterface.CallbackClosure? // closure to be called on success
+    internal var callback: CommandRequesterInterface.CallbackClosure? // closure to be called on success
     internal var finalizer: TockenFinalizer? // token cleanup closure
     fileprivate var completePromise: ExternalPromise<Result>
     

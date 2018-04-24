@@ -94,7 +94,7 @@
 		7FAFD7831F863A25009463CA /* VideoToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAFD7821F863A25009463CA /* VideoToken.swift */; };
 		7FAFD7871F863DDE009463CA /* Never.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAFD7861F863DDE009463CA /* Never.swift */; };
 		7FF587311FB280E7007CD11B /* TakeVideoDebugCommand.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FF587301FB280E7007CD11B /* TakeVideoDebugCommand.json */; };
-		8A05EEF91F7DCE2C002216B3 /* CommandLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A05EEF81F7DCE2C002216B3 /* CommandLibrary.swift */; };
+		8A05EEF91F7DCE2C002216B3 /* CommandRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A05EEF81F7DCE2C002216B3 /* CommandRequester.swift */; };
 		8A5910C62017D00F00AE80EA /* preprod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A5910C52017D00F00AE80EA /* preprod.plist */; };
 		FA0675FB1F83A82300722A37 /* StartSessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0675FA1F83A82300722A37 /* StartSessionResponse.swift */; };
 		FA2438AC1F8CBC8D0051535E /* TakePhotoToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2438AB1F8CBC8D0051535E /* TakePhotoToken.swift */; };
@@ -276,7 +276,7 @@
 		7FAFD7821F863A25009463CA /* VideoToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoToken.swift; sourceTree = "<group>"; };
 		7FAFD7861F863DDE009463CA /* Never.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Never.swift; sourceTree = "<group>"; };
 		7FF587301FB280E7007CD11B /* TakeVideoDebugCommand.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TakeVideoDebugCommand.json; sourceTree = "<group>"; };
-		8A05EEF81F7DCE2C002216B3 /* CommandLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLibrary.swift; sourceTree = "<group>"; };
+		8A05EEF81F7DCE2C002216B3 /* CommandRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandRequester.swift; sourceTree = "<group>"; };
 		8A5910C52017D00F00AE80EA /* preprod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = preprod.plist; sourceTree = "<group>"; };
 		9BE2FB0C2153B69BE186214F /* Pods-AppToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppToolkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppToolkit/Pods-AppToolkit.release.xcconfig"; sourceTree = "<group>"; };
 		A3DBCF8EC93C80275574FB05 /* Pods_AppToolkitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppToolkitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -477,7 +477,7 @@
 		547759881F86BA2A000E946D /* public */ = {
 			isa = PBXGroup;
 			children = (
-				8A05EEF81F7DCE2C002216B3 /* CommandLibrary.swift */,
+				8A05EEF81F7DCE2C002216B3 /* CommandRequester.swift */,
 			);
 			path = public;
 			sourceTree = "<group>";
@@ -1340,7 +1340,7 @@
 				FA6B5E1D1FD94DE800829B43 /* FetchAssetToken.swift in Sources */,
 				5477598A1F86C029000E946D /* EntityEvent.swift in Sources */,
 				FA3688B71F8CFD54004A87D6 /* RobotResponse.swift in Sources */,
-				8A05EEF91F7DCE2C002216B3 /* CommandLibrary.swift in Sources */,
+				8A05EEF91F7DCE2C002216B3 /* CommandRequester.swift in Sources */,
 				FAE777BD1FA09C30003F2203 /* CertificateService.swift in Sources */,
 				FAB417721FD55DF300F5C713 /* Display.swift in Sources */,
 				FA81CF441F96543500F6E8B0 /* AuthManager.swift in Sources */,

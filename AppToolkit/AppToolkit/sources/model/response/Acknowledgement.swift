@@ -45,12 +45,12 @@ enum ResponseCode: Int {
     }
     
     func asString() -> String {
-        let bundle = Bundle(for: CommandLibrary.self)
+        let bundle = Bundle(for: CommandRequester.self)
         return NSLocalizedString("response."+String(describing:self), bundle: bundle, comment: "")
     }
 
     func asDescription() -> String {
-        let bundle = Bundle(for: CommandLibrary.self)
+        let bundle = Bundle(for: CommandRequester.self)
         return NSLocalizedString("response.description."+String(describing:self), bundle: bundle, comment: "")
     }
 }

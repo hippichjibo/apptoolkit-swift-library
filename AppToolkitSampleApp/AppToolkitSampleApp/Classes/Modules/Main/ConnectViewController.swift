@@ -19,7 +19,7 @@ class ConnectViewController: UIViewController {
    	@IBOutlet weak var authButton: UIButton!
     	@IBOutlet weak var tableView: UITableView!
 
-	fileprivate lazy var remote: CommandLibrary = CommandExecutor.shared.remote
+	fileprivate lazy var remote: CommandRequester = CommandExecutor.shared.remote
     	fileprivate var isConnected: Bool = false
     	fileprivate var robotList: [RobotInfoProtocol]?
     	fileprivate var robot: Robot?

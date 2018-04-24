@@ -11,19 +11,19 @@ import Reachability
 
 protocol ConnectionPolicyManagerProtocol {
 	
-	var requester: CommandRequester? { get }
+	var requester: CommandRequestProtocol? { get }
 	var connectionManager: ConnectivityManager? { get }
     var currentRobot: Robot? { get }
 
 	// MARK: - Connection state
-	var onConnectionStateChange: CommandLibrary.ConnectionStateChangeHandler? { get set }
+	var onConnectionStateChange: CommandRequester.ConnectionStateChangeHandler? { get set }
 	
 	// MARK: API interface
-	func authenticate(completion: @escaping CommandLibrary.CompletionHandler)
-	func invalidate(completion: @escaping CommandLibrary.CompletionHandler)
+	func authenticate(completion: @escaping CommandRequester.CompletionHandler)
+	func invalidate(completion: @escaping CommandRequester.CompletionHandler)
 	
-	func connect(robot: Robot, completion: CommandLibrary.CompletionHandler?)
-	func disconnect(completion: CommandLibrary.CompletionHandler?)
+	func connect(robot: Robot, completion: CommandRequester.CompletionHandler?)
+	func disconnect(completion: CommandRequester.CompletionHandler?)
 	
 }
 
@@ -36,13 +36,13 @@ fileprivate struct ConnectionConstants {
 final class ConnectionPolicyManager: ConnectionPolicyManagerProtocol {
 	
 	// MARK: - Connection state
-	var onConnectionStateChange: CommandLibrary.ConnectionStateChangeHandler?
+	var onConnectionStateChange: CommandRequester.ConnectionStateChangeHandler?
 	fileprivate var connectionRetryCount: Int = 0
     private(set) var currentRobot: Robot? = nil
 
 	fileprivate let authManager: AuthManagerProtocol
 	fileprivate var lock = NSLock()
-	internal private(set) var requester: CommandRequester?
+	internal private(set) var requester: CommandRequestProtocol?
 	internal private(set) var connectionManager: ConnectivityManager?
     private let reachability = Reachability()!
 
@@ -56,7 +56,7 @@ final class ConnectionPolicyManager: ConnectionPolicyManagerProtocol {
 	}
 	
     // MARK: API interface
-	func authenticate(completion: @escaping CommandLibrary.CompletionHandler) {
+	func authenticate(completion: @escaping CommandRequester.CompletionHandler) {
 		authManager.authenticate()
 			.then { (success) -> () in
 				completion(success, nil)
@@ -65,14 +65,14 @@ final class ConnectionPolicyManager: ConnectionPolicyManagerProtocol {
 		}
 	}
 	
-	func invalidate(completion: @escaping CommandLibrary.CompletionHandler) {
+	func invalidate(completion: @escaping CommandRequester.CompletionHandler) {
 		authManager.invalidate()
 		disconnect { (success, error) in
 			completion(success, error)
 		}
 	}
 	
-    func connect(robot: Robot, completion: CommandLibrary.CompletionHandler? = nil) {
+    func connect(robot: Robot, completion: CommandRequester.CompletionHandler? = nil) {
         // toggle manual disconnection flag (see disconnect for details)
         self.isManualInitiatedDisconnect = false
         self.currentRobot = nil
@@ -107,7 +107,7 @@ final class ConnectionPolicyManager: ConnectionPolicyManagerProtocol {
         }
     }
 	
-	func disconnect(completion: CommandLibrary.CompletionHandler? = nil) {
+	func disconnect(completion: CommandRequester.CompletionHandler? = nil) {
         // set manual disconnection flag, it is needed to separate connection loss (due to bad WiFi or so) from manual disconnection
         isManualInitiatedDisconnect = true
         currentRobot = nil
@@ -123,7 +123,7 @@ final class ConnectionPolicyManager: ConnectionPolicyManagerProtocol {
 	}
 	
 	// MARK: - Private
-	private func setupManagers(_ completion: @escaping CommandLibrary.CompletionHandler) {
+	private func setupManagers(_ completion: @escaping CommandRequester.CompletionHandler) {
         guard let robot = currentRobot else {
             completion(false, ApiError.badRequest)
             return
@@ -207,7 +207,7 @@ final class ConnectionPolicyManager: ConnectionPolicyManagerProtocol {
 	}
 	
 	private func checkAuthenticationStatusAndRepairIfPossible(robotInfo: RobotInfoProtocol) -> Promise<Bool> {
-        guard !CommandLibrary.useSimulator else { return Promise<Bool>(value: true) }
+        guard !CommandRequester.useSimulator else { return Promise<Bool>(value: true) }
         
 		let (promise, fulfill, reject) = Promise<Bool>.pending()
 		

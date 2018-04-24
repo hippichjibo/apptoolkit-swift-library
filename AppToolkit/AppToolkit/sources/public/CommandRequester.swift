@@ -1,5 +1,5 @@
 //
-//  CommandLibrary.swift
+//  CommandRequester.swift
 //  AppToolkit
 //
 //  Created by Calvin Park on 9/28/17.
@@ -50,7 +50,7 @@ public struct Robot {
 /**
  Main library for the Jibo Protocol
  */
-public protocol CommandLibraryInterface {
+public protocol CommandRequesterInterface {
     // MARK: - Handler
     /// Completion handler
     typealias CompletionHandler = ((Bool, Error?) -> ())
@@ -237,7 +237,7 @@ public protocol CommandLibraryInterface {
     /**
      Turn on Jibo Simulator flow. Default value is `false`.
 
-     Use `CommandLibrary.useSimulator = false` in `viewDidLoad()`
+     Use `CommandRequester.useSimulator = false` in `viewDidLoad()`
      */
     static var useSimulator: Bool { get set }
 }
@@ -245,7 +245,7 @@ public protocol CommandLibraryInterface {
 /**
  :nodoc:
  */
-public class CommandLibrary: CommandLibraryInterface {
+public class CommandRequester: CommandRequesterInterface {
     // MARK: - Connection state
 	public var onConnectionStateChange: ConnectionStateChangeHandler? {
 		didSet {
@@ -254,7 +254,7 @@ public class CommandLibrary: CommandLibraryInterface {
 	}
 
     // MARK: - Private Variables
-	internal var requester: CommandRequester? {
+	internal var requestProtocol: CommandRequestProtocol? {
 		return self.connectionPolicyManager.requester
 	}
 	fileprivate var connectionManager: ConnectivityManager? {
@@ -294,7 +294,7 @@ public class CommandLibrary: CommandLibraryInterface {
     }
     
     public func getIpAddress(robot: RobotInfoProtocol, completion: RobotClosure?) {
-        guard !CommandLibrary.useSimulator else {
+        guard !CommandRequester.useSimulator else {
             // use predefined robot for simulator flow
             completion?(simulatedRobot, nil)
             return
@@ -313,7 +313,7 @@ public class CommandLibrary: CommandLibraryInterface {
     }
 
     public func connect(robot: Robot, completion: CompletionHandler? = nil) {
-        let robot = CommandLibrary.useSimulator ? simulatedRobot : robot
+        let robot = CommandRequester.useSimulator ? simulatedRobot : robot
 
         self.connectionPolicyManager.connect(robot: robot, completion: completion)
     }
@@ -324,7 +324,7 @@ public class CommandLibrary: CommandLibraryInterface {
     
     public func getConfiguration(completion: GetConfigClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.getConfig(genericCallback.execute)
+        let command = requestProtocol?.getConfig(genericCallback.execute)
         
         command?.tokenAcknowledged.then { _ in
             return // no need to handle here, callback is handled separately
@@ -336,7 +336,7 @@ public class CommandLibrary: CommandLibraryInterface {
 	
     public func setConfiguration(_ options: SetConfigOptionsProtocol, completion: SetConfigClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.setConfig(options, callback: genericCallback.execute)
+        let command = requestProtocol?.setConfig(options, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { _ in
             return // no need to handle here, callback is handled separately
@@ -348,7 +348,7 @@ public class CommandLibrary: CommandLibraryInterface {
 
 	public func say(phrase: String, completion: SayClosure?) -> TransactionID? {
 		let genericCallback = Callback(callback: completion)
-        let command = requester?.say(phrase: phrase, callback: genericCallback.execute)
+        let command = requestProtocol?.say(phrase: phrase, callback: genericCallback.execute)
 
         command?.tokenAcknowledged.then { _ in
             completion?(nil, nil)
@@ -364,7 +364,7 @@ public class CommandLibrary: CommandLibraryInterface {
                        completion: LookAtClosure?) -> TransactionID? {
 
         let genericCallback = Callback(callback: completion)
-        let command = requester?.lookAt(targetType: targetType, trackFlag: trackFlag, levelHeadFlag: levelHeadFlag, callback: genericCallback.execute)
+        let command = requestProtocol?.lookAt(targetType: targetType, trackFlag: trackFlag, levelHeadFlag: levelHeadFlag, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             completion?(nil, nil)
@@ -385,7 +385,7 @@ public class CommandLibrary: CommandLibraryInterface {
             }
             // Use separate instance (with additional security handling) to get media
             sself.authManager.certificate(for: robot).then { (certificate) -> () in
-                let schema = CommandLibrary.useSimulator ? "http://" : "https://"
+                let schema = CommandRequester.useSimulator ? "http://" : "https://"
                 let urlString = "\(schema)\(robot.getIp()!):\(robot.getPort())" + uri
                 let fetcher = CommandVideoFetcher(URL(string: urlString)!, certificate: certificate)
                 fetcher.didFetchImage = { (image) in
@@ -400,7 +400,7 @@ public class CommandLibrary: CommandLibraryInterface {
         }
         
         let genericCallback = Callback(callback: closure)
-        let command = requester?.takeVideo(videoType: videoType, duration: duration, callback: genericCallback.execute, finalizer: { [weak self] in
+        let command = requestProtocol?.takeVideo(videoType: videoType, duration: duration, callback: genericCallback.execute, finalizer: { [weak self] in
             guard let sself = self else { return }
             // cleanup fetcher on exit
             sself.videoFetcher = nil
@@ -426,7 +426,7 @@ public class CommandLibrary: CommandLibraryInterface {
             }
             // Use separate instance (with additional security handling) to get media
             sself.authManager.certificate(for: robot).then { (certificate) -> () in
-                let schema = CommandLibrary.useSimulator ? "http://" : "https://"
+                let schema = CommandRequester.useSimulator ? "http://" : "https://"
                 let urlString = "\(schema)\(robot.getIp()!):\(robot.getPort())" + uri
                 let fetcher = CommandPhotoFetcher(URL(string: urlString)!, certificate: certificate)
                 fetcher.didFetchImage = { (image) in
@@ -445,7 +445,7 @@ public class CommandLibrary: CommandLibraryInterface {
         }
         
         let genericCallback = Callback(callback: closure)
-        let command = requester?.takePhoto(with: camera, resolution: resolution, distortion: distortion, callback: genericCallback.execute, finalizer: { [weak self] in
+        let command = requestProtocol?.takePhoto(with: camera, resolution: resolution, distortion: distortion, callback: genericCallback.execute, finalizer: { [weak self] in
             guard let sself = self else { return }
             // cleanup fetcher on exit
             sself.photoFetcher = nil
@@ -461,7 +461,7 @@ public class CommandLibrary: CommandLibraryInterface {
 	
     public func getFaceEntity(completion: TrackedEntityClosure? = nil) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.entityRequest(callback: genericCallback.execute)
+        let command = requestProtocol?.entityRequest(callback: genericCallback.execute)
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
         }.catch { error in
@@ -471,7 +471,7 @@ public class CommandLibrary: CommandLibraryInterface {
     }
     
 	public func cancel(transactionId: TransactionID, completion: CompletionHandler? = nil) {
-		requester?.cancel(transactionId: transactionId).then { cancel -> () in
+		requestProtocol?.cancel(transactionId: transactionId).then { cancel -> () in
 			completion?(cancel.cancelledTransactionId != nil, nil)
 		}.catch { error in
 			completion?(false, error)
@@ -479,7 +479,7 @@ public class CommandLibrary: CommandLibraryInterface {
     }
     
     public func getRobotsList(completion: RobotListClosure? = nil) {
-        guard !CommandLibrary.useSimulator else {
+        guard !CommandRequester.useSimulator else {
             // use predefined robot for simulator flow
             completion?([simulatedRobotInfo], nil)
             return
@@ -490,7 +490,7 @@ public class CommandLibrary: CommandLibraryInterface {
     
     public func displayEye(in view: String, completion: DisplayClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.displayEye(in: view, callback: genericCallback.execute)
+        let command = requestProtocol?.displayEye(in: view, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -502,7 +502,7 @@ public class CommandLibrary: CommandLibraryInterface {
     
     public func displayText(_ text: String, in view: String, completion: DisplayClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.displayText(text, in: view, callback: genericCallback.execute)
+        let command = requestProtocol?.displayText(text, in: view, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -514,7 +514,7 @@ public class CommandLibrary: CommandLibraryInterface {
     
     public func displayImage(_ image: ImageData, in view: String, completion: DisplayClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.displayImage(image, in: view, callback: genericCallback.execute)
+        let command = requestProtocol?.displayImage(image, in: view, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -526,7 +526,7 @@ public class CommandLibrary: CommandLibraryInterface {
 
     public func getMotion(completion: MotionClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.getMotion(callback: genericCallback.execute)
+        let command = requestProtocol?.getMotion(callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -538,7 +538,7 @@ public class CommandLibrary: CommandLibraryInterface {
 
     public func listenForSpeech(maxSpeechTimeOut: Timeout = 15, maxNoSpeechTimeout: Timeout = 15, languageCode: LangCode = .enUS, completion: ListenClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.listenForSpeech(maxSpeechTimeOut: maxSpeechTimeOut, maxNoSpeechTimeout: maxNoSpeechTimeout, languageCode: languageCode, callback: genericCallback.execute)
+        let command = requestProtocol?.listenForSpeech(maxSpeechTimeOut: maxSpeechTimeOut, maxNoSpeechTimeout: maxNoSpeechTimeout, languageCode: languageCode, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -550,7 +550,7 @@ public class CommandLibrary: CommandLibraryInterface {
     
     public func listenForHeadTouch(completion: HeadTouchClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.listenForHeadTouch(callback: genericCallback.execute)
+        let command = requestProtocol?.listenForHeadTouch(callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -562,7 +562,7 @@ public class CommandLibrary: CommandLibraryInterface {
 
     public func fetchAssetWithURI(_ uri: String, name: String, completion: FetchAssetClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.fetchAssetWithURI(uri, name: name, callback: genericCallback.execute)
+        let command = requestProtocol?.fetchAssetWithURI(uri, name: name, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -574,7 +574,7 @@ public class CommandLibrary: CommandLibraryInterface {
 
     public func listenForScreenGesture(_ params: ScreenGestureListenParams, completion: ScreenGestureClosure?) -> TransactionID? {
         let genericCallback = Callback(callback: completion)
-        let command = requester?.listenForScreenGesture(params, callback: genericCallback.execute)
+        let command = requestProtocol?.listenForScreenGesture(params, callback: genericCallback.execute)
         
         command?.tokenAcknowledged.then { result in
             return // no need to handle here, callback is handled separately
@@ -588,7 +588,7 @@ public class CommandLibrary: CommandLibraryInterface {
 /**
  :nodoc:
  */
-extension CommandLibrary {
+extension CommandRequester {
     public static var environment: Environment {
         get {
             return EnvironmentSwitcher.shared().currentEnvironment
@@ -602,7 +602,7 @@ extension CommandLibrary {
 /**
  :nodoc:
  */
-extension CommandLibrary {
+extension CommandRequester {
     public func application(_ app: UIApplication, open url: URL, sourceApplication: String?, annotation: Any?) -> Bool {
         // redirect OAuth callback
         return authManager.application(app, open: url, sourceApplication: sourceApplication, annotation: annotation)
@@ -612,7 +612,7 @@ extension CommandLibrary {
 /**
  :nodoc:
  */
-extension CommandLibrary {
+extension CommandRequester {
     /**
      for using simulator to test
      */
