@@ -451,6 +451,66 @@ public struct HotWordInfo: Mappable {
     public var speaker: Speaker?
 }
 
+extension AssetsProtocol {
+    /** FetchAsset closure
+     */
+    public typealias FetchAssetClosure = ((FetchAssetInfo?, ErrorResponse?) -> ())
+}
+
+extension DisplayProtocol {
+    /** Display closure
+     */
+    public typealias DisplayClosure = ((DisplayInfo?, ErrorResponse?) -> ())
+}
+
+extension ConfigProtocol {
+    /** Get Config closure
+     */
+    public typealias GetConfigClosure = ((GetConfigInfo?, ErrorResponse?) -> ())
+    
+    /** Set Config closure
+     */
+    public typealias SetConfigClosure = ((SetConfigInfo?, ErrorResponse?) -> ())
+}
+
+extension SubscribeProtocol {
+    /** ScreenGesture closure
+     */
+    public typealias ScreenGestureClosure = ((ScreenGestureInfo?, ErrorResponse?) -> ())
+    /** Motion closure
+     */
+    public typealias MotionClosure = ((MotionInfo?, ErrorResponse?) -> ())
+    /** HeadTouch closure
+     */
+    public typealias HeadTouchClosure = ((HeadTouchInfo?, ErrorResponse?) -> ())
+    /** TrackEntity closure
+     */
+    public typealias TrackedEntityClosure = ((TrackedEntityInfo?, ErrorResponse?) -> ())
+}
+
+extension ListenProtocol {
+    /** Listen closure
+     */
+    public typealias ListenClosure = ((ListenInfo?, ErrorResponse?) -> ())
+}
+
+extension ExpressionProtocol {
+    /** Look At closure
+     */
+    public typealias LookAtClosure = ((LookAtAchievedInfo?, ErrorResponse?) -> ())
+    /** Say closure
+     */
+    public typealias SayClosure = ((SayCompletedInfo?, ErrorResponse?) -> ())
+}
+
+extension CaptureProtocol {
+    /** Take Video closure
+     */
+    public typealias TakeVideoClosure = ((UIImage?, ErrorResponse?) -> ())
+    /** Take Photo closure
+     */
+    public typealias TakePhotoClosure = ((TakePhotoInfo?, ErrorResponse?) -> ())
+}
 
 //MARK: Main Library
 /**
@@ -462,64 +522,16 @@ extension CommandRequesterInterface {
      Generic closure
      */
     public typealias CallbackClosure = ((Any?, ErrorResponse?) -> ())
-
-    /** Look At closure
-     */
-    public typealias LookAtClosure = ((LookAtAchievedInfo?, ErrorResponse?) -> ())
-
-    /** Say closure
-     */
-    public typealias SayClosure = ((SayCompletedInfo?, ErrorResponse?) -> ())
     
-    /** Take Photo closure
-     */
-    public typealias TakePhotoClosure = ((TakePhotoInfo?, ErrorResponse?) -> ())
+    
     
     /** Robot closure
      */
     public typealias RobotClosure = ((Robot?, ErrorResponse?) -> ())
 
-    /** Take Video closure
-     */
-    public typealias TakeVideoClosure = ((UIImage?, ErrorResponse?) -> ())
-
-    /** Get Config closure
-    */
-    public typealias GetConfigClosure = ((GetConfigInfo?, ErrorResponse?) -> ())
     
-    /** Set Config closure
-    */
-    public typealias SetConfigClosure = ((SetConfigInfo?, ErrorResponse?) -> ())
 
     /** Robot List closure
     */
     public typealias RobotListClosure = (([RobotInfoProtocol]?, ErrorResponse?) -> ())
-    
-    /** Display closure
-    */
-    public typealias DisplayClosure = ((DisplayInfo?, ErrorResponse?) -> ())
-
-    /** Motion closure
-     */
-    public typealias MotionClosure = ((MotionInfo?, ErrorResponse?) -> ())
-
-    /** Listen closure
-    */
-    public typealias ListenClosure = ((ListenInfo?, ErrorResponse?) -> ())
-
-    /** HeadTouch closure
-    */
-    public typealias HeadTouchClosure = ((HeadTouchInfo?, ErrorResponse?) -> ())
-
-    /** FetchAsset closure
-    */
-    public typealias FetchAssetClosure = ((FetchAssetInfo?, ErrorResponse?) -> ())
-
-    /** ScreenGesture closure
-    */
-    public typealias ScreenGestureClosure = ((ScreenGestureInfo?, ErrorResponse?) -> ())
-
-    /** TrackEntity closure
-    */
-    public typealias TrackedEntityClosure = ((TrackedEntityInfo?, ErrorResponse?) -> ())
 }
