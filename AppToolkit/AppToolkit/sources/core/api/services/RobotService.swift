@@ -11,7 +11,7 @@ import ObjectMapper
 
 protocol RobotServiceProtocol: Service {
 	
-	func obtainRobotsList(authorizer: RequestAuthorizer, completion: CommandLibraryInterface.RobotListClosure?) -> URLRequest?
+	func obtainRobotsList(authorizer: RequestAuthorizer, completion: CommandRequesterInterface.RobotListClosure?) -> URLRequest?
 	func robotsListRequest() -> URLRequest?
 	
 }
@@ -29,7 +29,7 @@ final class RobotsService: RobotServiceProtocol {
 extension RobotsService {
 	
 	@discardableResult
-	func obtainRobotsList(authorizer: RequestAuthorizer, completion: CommandLibraryInterface.RobotListClosure? = nil) -> URLRequest? {
+	func obtainRobotsList(authorizer: RequestAuthorizer, completion: CommandRequesterInterface.RobotListClosure? = nil) -> URLRequest? {
 		guard let request = self.robotsListRequest() else {
 			completion?(nil, ErrorResponse(ApiError.badRequest))
 			return nil

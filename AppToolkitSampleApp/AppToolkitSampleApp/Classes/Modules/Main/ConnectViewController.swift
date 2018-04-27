@@ -19,7 +19,7 @@ class ConnectViewController: UIViewController {
    	@IBOutlet weak var authButton: UIButton!
     	@IBOutlet weak var tableView: UITableView!
 
-	fileprivate lazy var remote: CommandLibrary = CommandExecutor.shared.remote
+	fileprivate lazy var remote: CommandRequester = CommandExecutor.shared.remote
     	fileprivate var isConnected: Bool = false
     	fileprivate var robotList: [RobotInfoProtocol]?
     	fileprivate var robot: Robot?
@@ -85,7 +85,7 @@ extension ConnectViewController {
 	}
 	
 	fileprivate func authenticate() {
-		remote.authenticate(completion: { [unowned self] (success, error) in
+		remote.signIn(completion: { [unowned self] (success, error) in
 			print("Autentication status - \(success)")
             self.getRobots()
 		})
@@ -93,15 +93,14 @@ extension ConnectViewController {
 
     fileprivate func invalidate() {
         robot = nil
-        remote.invalidate(completion: { [unowned self] (success, error) in
+        remote.logOut(completion: { [unowned self] (success, error) in
             self.updateButtonsState()
         })
     }
 
     fileprivate func getRobots() {
         guard remote.isAuthenticated else { return }
-
-        remote.getRobotsList(completion: { [unowned self] (robots, err) in
+        remote.getRobots(completion: { [unowned self] (robots, err) in
             if let error = err {
                 print("Failed to get robots list: \(error)")
             } else if let robots = robots {

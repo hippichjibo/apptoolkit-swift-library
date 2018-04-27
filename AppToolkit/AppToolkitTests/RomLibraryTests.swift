@@ -1,5 +1,5 @@
 //
-//  CommandLibraryTests.swift
+//  CommandRequesterTests.swift
 //  AppToolkitTests
 //
 //  Created by Justin Shiiba on 10/5/17.
@@ -10,8 +10,8 @@ import XCTest
 import PromiseKit
 @testable import AppToolkit
 
-class CommandLibraryTests: XCTestCase {
-//    var rom: CommandLibrary!
+class CommandRequesterTests: XCTestCase {
+//    var rom: CommandRequester!
     var mockDelegate: MockEventListenerDelegate!
     var mockRequester: MockCommandRequester!
 
@@ -19,7 +19,7 @@ class CommandLibraryTests: XCTestCase {
         super.setUp()
         mockDelegate = MockEventListenerDelegate()
         mockRequester = MockCommandRequester()
-//        rom = CommandLibrary()
+//        rom = CommandRequester()
 //        rom.delegate = mockDelegate
 //        rom.requester = mockRequester
     }
@@ -28,7 +28,7 @@ class CommandLibraryTests: XCTestCase {
 
     func testSuccessfulConnection() {
         mockRequester.connectionStatus = .connected
-        let successHandler: CommandLibrary.CompletionHandler = { succeed, error in
+        let successHandler: CommandRequester.CompletionHandler = { succeed, error in
             XCTAssertTrue(succeed)
         }
 
@@ -37,7 +37,7 @@ class CommandLibraryTests: XCTestCase {
 
     func testFailedConnection() {
         mockRequester.connectionStatus = .unconnected
-        let successHandler: CommandLibrary.CompletionHandler = { succeed, error in
+        let successHandler: CommandRequester.CompletionHandler = { succeed, error in
             XCTAssertFalse(succeed)
         }
 
@@ -46,7 +46,7 @@ class CommandLibraryTests: XCTestCase {
 
     func testErrorConnection() {
         mockRequester.connectionStatus = .error
-        let errorHandler: CommandLibrary.CompletionHandler = { succeed,error in
+        let errorHandler: CommandRequester.CompletionHandler = { succeed,error in
             XCTAssertNotNil(error)
         }
 
