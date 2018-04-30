@@ -24,6 +24,9 @@
 		8A75E5FB206DA40400BBE38F /* RobotListDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A75E5FA206DA40400BBE38F /* RobotListDataManager.swift */; };
 		8AA1EA7120699BF300BB5895 /* AppToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA1EA7220699BF300BB5895 /* AppToolkit.framework */; };
 		8AA1EA7420699CC400BB5895 /* AppToolkit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA1EA7220699BF300BB5895 /* AppToolkit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE8519A0209712E100D8D261 /* PositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE85199F209712E100D8D261 /* PositionViewController.swift */; };
+		CE8519A22097277500D8D261 /* AngleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8519A12097277500D8D261 /* AngleViewController.swift */; };
+		CE8519A4209727A200D8D261 /* ScreenCoordinatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8519A3209727A200D8D261 /* ScreenCoordinatesViewController.swift */; };
 		FA3D5AE01FE30B2400A10818 /* ScreenGestureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ADF1FE30B2400A10818 /* ScreenGestureViewController.swift */; };
 		FA5A6FF01F7515360025FD52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A6FEF1F7515360025FD52 /* AppDelegate.swift */; };
 		FA5A6FF21F7515360025FD52 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A6FF11F7515360025FD52 /* ConnectViewController.swift */; };
@@ -83,6 +86,9 @@
 		8AA1EA7220699BF300BB5895 /* AppToolkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AppToolkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2A7A1AD4326C80A9959154 /* Pods_AppToolkitSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppToolkitSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75FF5CF14E5C733135A93A0 /* Pods-AppToolkitSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppToolkitSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppToolkitSampleApp/Pods-AppToolkitSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CE85199F209712E100D8D261 /* PositionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PositionViewController.swift; path = Modules/PositionViewController.swift; sourceTree = "<group>"; };
+		CE8519A12097277500D8D261 /* AngleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleViewController.swift; sourceTree = "<group>"; };
+		CE8519A3209727A200D8D261 /* ScreenCoordinatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCoordinatesViewController.swift; sourceTree = "<group>"; };
 		FA3D5ADF1FE30B2400A10818 /* ScreenGestureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenGestureViewController.swift; sourceTree = "<group>"; };
 		FA5A6FEC1F7515360025FD52 /* AppToolkitSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppToolkitSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA5A6FEF1F7515360025FD52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +192,9 @@
 				7F2002B91F83F5A200725AB0 /* CoreLayer */,
 				7F74EAD41F83C58200D3AE30 /* Application */,
 				7F74EAD51F83C58700D3AE30 /* Modules */,
+				CE85199F209712E100D8D261 /* PositionViewController.swift */,
+				CE8519A3209727A200D8D261 /* ScreenCoordinatesViewController.swift */,
+				CE8519A12097277500D8D261 /* AngleViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -490,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F74EADD1F83EA5400D3AE30 /* UIViewController+Extension.swift in Sources */,
+				CE8519A4209727A200D8D261 /* ScreenCoordinatesViewController.swift in Sources */,
 				7F2002C81F84F63900725AB0 /* CommandResultControllersFactory.swift in Sources */,
 				7FAFD7891F86881A009463CA /* VideoViewController.swift in Sources */,
 				7F2002BF1F84018900725AB0 /* RobotActionsDataManager.swift in Sources */,
@@ -500,6 +510,7 @@
 				7F4691631F8BD34000F4D12C /* LookAtActionViewController.swift in Sources */,
 				7F74EAD81F83CBAC00D3AE30 /* RobotActionsViewController.swift in Sources */,
 				FA3D5AE01FE30B2400A10818 /* ScreenGestureViewController.swift in Sources */,
+				CE8519A22097277500D8D261 /* AngleViewController.swift in Sources */,
 				FA5A6FF21F7515360025FD52 /* ConnectViewController.swift in Sources */,
 				8A75E5FB206DA40400BBE38F /* RobotListDataManager.swift in Sources */,
 				7F2002BD1F83F96500725AB0 /* RobotActionsService.swift in Sources */,
@@ -511,6 +522,7 @@
 				7F2002BB1F83F5F000725AB0 /* PlistLoader.swift in Sources */,
 				FAAE93DF1FD6B51700E44892 /* MotionViewController.swift in Sources */,
 				FAC911491FA9EFFE00E3BD27 /* PhotoViewController.swift in Sources */,
+				CE8519A0209712E100D8D261 /* PositionViewController.swift in Sources */,
 				FA8B92271FDA9E3000870246 /* ListenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

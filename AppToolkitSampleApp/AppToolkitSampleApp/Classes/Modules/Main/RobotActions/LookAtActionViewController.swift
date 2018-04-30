@@ -42,12 +42,26 @@ class LookAtActionViewController: UIViewController, CommandConfigurable, Console
 		var actionSheetActions: [UIAlertAction] = LookAtType.allValues.flatMap { type in
 			UIAlertAction(title: type.rawValue, style: .default, handler: { [unowned self] _ in
 				self.log("Start executing LookAt: \(type.rawValue), \(type.targetType)")
-                self.activeLookAtTransactionId = self.commandExecutor.executeLookAtCommand(lookAt: type, callback: { (lookAtInfo, _) in
-                    if let look = lookAtInfo, nil == look.error {
-                        self.log("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
-                    }
-                })
-				self.log("Executing TransactionId: \(self.activeLookAtTransactionId ?? "Empty")")
+                
+                
+                if type == LookAtType.position{
+                self.performSegue(withIdentifier: "PositionSegue", sender: nil)
+                }else if type == LookAtType.screenCoords{
+                self.performSegue(withIdentifier: "ScreenCoordinatesSegue", sender: nil)
+                }
+                else if type == LookAtType.angle{
+                self.performSegue(withIdentifier: "AngleViewSegue", sender: nil)
+                }
+                
+                //let navController  = InfoViewController()
+                //self.navigationController?.pushViewController(navController, animated: true)
+                
+//                self.activeLookAtTransactionId = self.commandExecutor.executeLookAtCommand(lookAt: type, callback: { (lookAtInfo, _) in
+//                    if let look = lookAtInfo, nil == look.error {
+//                        self.log("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
+//                    }
+//                })
+//                self.log("Executing TransactionId: \(self.activeLookAtTransactionId ?? "Empty")")
 			})
 		}
 		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -62,8 +76,11 @@ class LookAtActionViewController: UIViewController, CommandConfigurable, Console
 		guard let transactionToCancel = id else {
 			return
 		}
+        
 
 		commandExecutor.cancelCommand(transactionId: transactionToCancel, completion: nil)
 	}
+    
 }
+
 
