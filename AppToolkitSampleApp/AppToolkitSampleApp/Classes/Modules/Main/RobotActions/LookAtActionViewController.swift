@@ -44,13 +44,13 @@ class LookAtActionViewController: UIViewController, CommandConfigurable, Console
 				self.log("Start executing LookAt: \(type.rawValue), \(type.targetType)")
                 
                 
-                if type == LookAtType.position{
-                self.performSegue(withIdentifier: "PositionSegue", sender: nil)
+                if type == LookAtType.position {
+                    self.performSegue(withIdentifier: "PositionSegue", sender: nil)
                 }else if type == LookAtType.screenCoords{
-                self.performSegue(withIdentifier: "ScreenCoordinatesSegue", sender: nil)
+                    self.performSegue(withIdentifier: "ScreenCoordinatesSegue", sender: nil)
                 }
                 else if type == LookAtType.angle{
-                self.performSegue(withIdentifier: "AngleViewSegue", sender: nil)
+                    self.performSegue(withIdentifier: "AngleViewSegue", sender: nil)
                 }
                 
                 //let navController  = InfoViewController()

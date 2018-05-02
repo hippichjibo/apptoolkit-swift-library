@@ -15,6 +15,7 @@ class ScreenCoordinatesViewController: UIViewController {
     @IBOutlet weak var resLabel: UILabel!
     @IBOutlet weak var xField: UITextField!
     
+    @IBOutlet weak var resultButton: UIButton!
     @IBOutlet weak var yField: UITextField!
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

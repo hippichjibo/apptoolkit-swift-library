@@ -38,7 +38,7 @@ enum LookAtType: String {
 	
 	var targetType: LookAtTargetType {
 		switch self {
-		case .position:
+        case .position:
 			let vector3 = Vector3(x: 0, y: 3.14, z: 0)
 			return LookAtTargetType.position(position: vector3)
 		case .angle:
@@ -51,6 +51,8 @@ enum LookAtType: String {
 			return LookAtTargetType.entity(entity: 1)
 		}
 	}
+    
+    
 }
 
 typealias TransactionId = String
