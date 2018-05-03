@@ -34,19 +34,17 @@ class PositionViewController: UIViewController {
             let yValue = yTextField.text ,  let yFloat = Float(yValue),
             let zvalue = zTextField.text ,  let zFloat = Float(zvalue) {
             
-            var positonScreen = Vector3(x: xFloat, y: yFloat, z: zFloat)
+            let positonScreen = Vector3(x: xFloat, y: yFloat, z: zFloat)
             
-//            let transactionId = self.commandExecutor.executeLookAtCommand(lookAt: LookAtType.angle, callback: { (lookAtInfo, _) in
-//            if let look = lookAtInfo, nil == look.error {
-//                lookAtInfo?.positionTarget = positonScreen
-//                    print("\ndidReceiveLookAtAchieved at:\(lookAtInfo?.positionTarget!), angleTarget: \(lookAtInfo?.angleTarget!)\n")
-//                }
-//                })
-//
-//                // (LookAtAchievedInfo?, ErrorResponse?) -> ()
-//                print("Executing TransactionId: \(transactionId ?? "Empty")")
-//            }
-        
+            
+           let transactionId = self.commandExecutor.executeLookAtCommand(position: CommandRequester.Expression.Position(position: positonScreen), callback: { (lookAtInfo, _) in
+                                        if let look = lookAtInfo, nil == look.error {
+                                            print("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
+                                        }
+                                    })
+                            // (LookAtAchievedInfo?, ErrorResponse?) -> ()
+                            print("Executing TransactionId: \(transactionId ?? "Empty")")
+                        }
         }
         
     }

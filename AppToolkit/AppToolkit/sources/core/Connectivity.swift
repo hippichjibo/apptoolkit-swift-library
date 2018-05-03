@@ -64,7 +64,7 @@ class WebSocketConnection: Connectivity {
     var onConnectedChange: ((Bool, Error?) -> ())?
     private static var socketSchema: String {
         // separate schema for simulator flow
-        return CommandLibrary.useSimulator ? "ws://" : "wss://"
+        return CommandRequester.useSimulator ? "ws://" : "wss://"
     }
 
     required init(_ address: String, port: Int, certificate: CertificateInfo) {

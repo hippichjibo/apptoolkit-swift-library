@@ -133,7 +133,7 @@ struct AuthInfo {
 class AuthManager: AuthManagerProtocol {
     var isAuthenticated: Bool { return authState != .undefined && authState != .notAuthorized }
 	var authState: AuthState {
-        guard !CommandLibrary.useSimulator else {
+        guard !CommandRequester.useSimulator else {
             // always authorize for simulator flow
             return .authorized
         }
@@ -278,7 +278,7 @@ class AuthManager: AuthManagerProtocol {
     }
     
     internal func certificate(for robot: Robot) -> Promise<CertificateInfo> {
-        guard !CommandLibrary.useSimulator else { return Promise<CertificateInfo>(value: simulatorCert) }
+        guard !CommandRequester.useSimulator else { return Promise<CertificateInfo>(value: simulatorCert) }
         
         return Promise { (fulfill, reject) in
             if let robotName = robot.info.robotName,

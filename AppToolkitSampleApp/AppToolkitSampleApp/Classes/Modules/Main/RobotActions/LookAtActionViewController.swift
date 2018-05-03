@@ -43,25 +43,46 @@ class LookAtActionViewController: UIViewController, CommandConfigurable, Console
 			UIAlertAction(title: type.rawValue, style: .default, handler: { [unowned self] _ in
 				self.log("Start executing LookAt: \(type.rawValue), \(type.targetType)")
                 
-                
-                if type == LookAtType.position {
-                    self.performSegue(withIdentifier: "PositionSegue", sender: nil)
-                }else if type == LookAtType.screenCoords{
-                    self.performSegue(withIdentifier: "ScreenCoordinatesSegue", sender: nil)
-                }
-                else if type == LookAtType.angle{
+
+                switch type.targetType {
+                case .angle:
+                    
                     self.performSegue(withIdentifier: "AngleViewSegue", sender: nil)
+                    
+//                    self.activeLookAtTransactionId = self.commandExecutor.executeLookAtCommand(angle: CommandRequester.Expression.Angle(angle: AngleVector(theta: 0, psi: 1.57)), callback: { (lookAtInfo, _) in
+//                        if let look = lookAtInfo, nil == look.error {
+//                            self.log("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
+//                        }
+//                    })
+                case .position:
+                    
+                    self.performSegue(withIdentifier: "PositionSegue", sender: nil)
+                    
+//                    self.activeLookAtTransactionId = self.commandExecutor.executeLookAtCommand(position: CommandRequester.Expression.Position(position: Vector3(x: 0, y: 3.14, z: 0)), callback: { (lookAtInfo, _) in
+//                        if let look = lookAtInfo, nil == look.error {
+//                            self.log("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
+//                        }
+//                    })
+                    
+                case .screenCoords:
+                    
+                    self.performSegue(withIdentifier: "ScreenCoordinatesSegue", sender: nil)
+                    
+//                    self.activeLookAtTransactionId = self.commandExecutor.executeLookAtCommand(screenCoords: CommandRequester.Expression.ScreenCoords(coords: Vector2(x: 0, y: 5)), callback: { (lookAtInfo, _) in
+//                        if let look = lookAtInfo, nil == look.error {
+//                            self.log("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
+//                        }
+//                    })
+                    
+                case .entity:
+                    self.activeLookAtTransactionId = self.commandExecutor.executeLookAtCommand(entity: CommandRequester.Expression.Entity(entity: 1), callback: { (lookAtInfo, _) in
+                        if let look = lookAtInfo, nil == look.error {
+                            self.log("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
+                        }
+                    })
                 }
                 
-                //let navController  = InfoViewController()
-                //self.navigationController?.pushViewController(navController, animated: true)
-                
-//                self.activeLookAtTransactionId = self.commandExecutor.executeLookAtCommand(lookAt: type, callback: { (lookAtInfo, _) in
-//                    if let look = lookAtInfo, nil == look.error {
-//                        self.log("\ndidReceiveLookAtAcheived at:\(look.positionTarget!), angleTarget: \(look.angleTarget!)\n")
-//                    }
-//                })
-//                self.log("Executing TransactionId: \(self.activeLookAtTransactionId ?? "Empty")")
+				self.log("Executing TransactionId: \(self.activeLookAtTransactionId ?? "Empty")")
 			})
 		}
 		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
