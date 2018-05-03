@@ -98,7 +98,8 @@ class CommandExecutor {
 		remote.cancel(transactionId: transactionId, completion: completion)
 	}
     func executeLookAtCommand(position: CommandRequester.Expression.Position, callback: ExpressionProtocol.LookAtClosure?) -> TransactionId? {
-        return remote.expression?.look(position: position, completion: callback)
+        let result = remote.expression?.look(position: position, completion: callback)
+        return result
     }
     func executeLookAtCommand(angle: CommandRequester.Expression.Angle, callback: ExpressionProtocol.LookAtClosure?) -> TransactionId? {
         return remote.expression?.look(angle: angle, completion: callback)
