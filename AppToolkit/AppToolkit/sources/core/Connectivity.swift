@@ -34,6 +34,7 @@ public enum RobotDisconnectCode: Int {
 	case inactivityTimeout = 4003
 }
 
+/// :nodoc:
 enum SocketConnectionState: Equatable {
     case undefined
     case connecting
@@ -55,7 +56,7 @@ enum SocketConnectionState: Equatable {
         }
     }
 }
-
+/// :nodoc:
 class WebSocketConnection: Connectivity {
     fileprivate var socket: WebSocket
     fileprivate var connected: MutableProperty<SocketConnectionState> = MutableProperty<SocketConnectionState>(.undefined)

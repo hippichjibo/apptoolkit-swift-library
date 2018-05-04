@@ -12,6 +12,7 @@ import ObjectMapper
 //MARK: base model object class
 
 /**
+ :nodoc:
  Base model class
  */
 public class ModelObject: Mappable {
@@ -31,6 +32,7 @@ public class ModelObject: Mappable {
 //MARK: protocol based variables serialization
 
 /**
+ :nodoc:
  Class to serialize an Object or a JSON.
  */
 final class BasicProtocolTypeSerializationTransform<T: Mappable, P>: TransformType {

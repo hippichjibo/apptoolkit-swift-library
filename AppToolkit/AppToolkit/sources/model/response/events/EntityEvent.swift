@@ -9,7 +9,6 @@
 import Foundation
 import ObjectMapper
 
-//MARK: Tracking
 /**
  When Jibo sees an entity, it is either a face and is recognized as a loop member,
  or is unknown
