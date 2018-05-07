@@ -175,7 +175,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
      for a diagram.
      */
     public struct HeadSensors: Mappable {
-        //// :nodoc:
+        /// :nodoc:
         public init?(map: Map) {
             self.init(leftFront: false,
             leftMiddle: false,
