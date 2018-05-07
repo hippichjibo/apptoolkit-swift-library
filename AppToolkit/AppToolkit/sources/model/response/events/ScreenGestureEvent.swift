@@ -7,7 +7,8 @@
 //
 
 import ObjectMapper
-
+//MARK: Screen Gesture
+/** Protocol for screen gestures */
 public protocol ScreenGestureEntityProtocol {
     /// Coordinate on the screen
     var coordinate: Vector2? { get set }

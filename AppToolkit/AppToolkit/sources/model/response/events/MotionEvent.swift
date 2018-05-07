@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-
+//MARK: Motion
 /**
  Protocol for when Jibo sees motion.
  */

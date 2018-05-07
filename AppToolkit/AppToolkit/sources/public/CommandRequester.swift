@@ -211,7 +211,7 @@ public class CommandRequester: CommandRequesterInterface {
          - Parameters:
          - uri: URI to the asset to be fetched.
          - name: Name the asset will be called by.
-         - completion: (`FetchAssetInfo`, `ErrorResponse`)
+         - completion: (`FetchAssetInfo`?, `ErrorResponse`?)
          */
         public func load(uri: String, name: String, completion: FetchAssetClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -346,7 +346,7 @@ public class CommandRequester: CommandRequesterInterface {
             /** Listen for a tap or swipe on Jibo's screen
              - Parameters:
              - params: Options for type of gesture and location of gesture
-             - completion: (`ScreenGestureInfo`, `ErrorResponse`)
+             - completion: (`ScreenGestureInfo`?, `ErrorResponse`?)
              */
             public func gesture(_ params: ScreenGestureListenParams, completion: ScreenGestureClosure?) -> TransactionID? {
                 let genericCallback = Callback(callback: completion)
@@ -366,7 +366,7 @@ public class CommandRequester: CommandRequesterInterface {
          Display an image on Jibo's screen
          - Parameters:
          - view: Image view information
-         - completion: (`DisplayInfo`, `ErrorResponse`)
+         - completion: (`DisplayInfo`?, `ErrorResponse`?)
          */
         public func swap(view: CommandRequester.Display.ImageView, completion: DisplayClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -384,7 +384,7 @@ public class CommandRequester: CommandRequesterInterface {
          Display text on Jibo's screen
          - Parameters:
          - view: Text view information
-         - completion: (`DisplayInfo`, `ErrorResponse`)
+         - completion: (`DisplayInfo`?, `ErrorResponse`?)
          */
         public func swap(view: CommandRequester.Display.TextView, completion: DisplayClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -402,7 +402,7 @@ public class CommandRequester: CommandRequesterInterface {
          Display Jibo's eye on his screen
          - Parameters:
          - view: Eye view information
-         - completion: (`DisplayInfo`, `ErrorResponse`)
+         - completion: (`DisplayInfo`?, `ErrorResponse`?)
          */
         public func swap(view: CommandRequester.Display.EyeView, completion: DisplayClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -451,7 +451,7 @@ public class CommandRequester: CommandRequesterInterface {
          Set available Jibo configurations
          - Parameters:
          - options: Settings availble to configure
-         - completion: (`SetConfigInfo`, `ErrorResponse`)
+         - completion: (`SetConfigInfo`?, `ErrorResponse`?)
          */
         public func set(_ options: SetConfigOptionsProtocol, completion: SetConfigClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -512,7 +512,7 @@ public class CommandRequester: CommandRequesterInterface {
             /**
              Track motion in Jibo's perceptual space
              - Parameters:
-             - completion: (`MotionInfo`, `ErrorResponse`)
+             - completion: (`MotionInfo`?, `ErrorResponse`?)
              */
             public func motion(completion: MotionClosure?) -> TransactionID? {
                 let genericCallback = Callback(callback: completion)
@@ -529,7 +529,7 @@ public class CommandRequester: CommandRequesterInterface {
             /**
              Listen for Jibo to receive a head touch
              - Parameters:
-             - completion: (`HeadTouchInfo`, `ErrorResponse`)
+             - completion: (`HeadTouchInfo`?, `ErrorResponse`?)
              */
             public func headTouch(completion: HeadTouchClosure?) -> TransactionID? {
                 let genericCallback = Callback(callback: completion)
@@ -567,7 +567,7 @@ public class CommandRequester: CommandRequesterInterface {
          - maxSpeechTimeout: Seconds to listen before timing out
          - maxNoSpeechTimeout: Seconds to wait for speech to start before timing out
          - languageCode: Language to listen for. Currently only US English is supported.
-         - completion: (`ListenInfo`, `ErrorResponse`)
+         - completion: (`ListenInfo`?, `ErrorResponse`?)
          */
         public func start(maxSpeechTimeOut: Timeout = 15, maxSpeechNoTimeout: Timeout = 15, languageCode: LangCode = .enUS, completion: ListenClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -657,7 +657,7 @@ public class CommandRequester: CommandRequesterInterface {
          Make Jibo look at a specific angel
          - Parameters:
          - angle: Angle to look toward
-         - completion: (`LookAtAchievedInfo`, `ErrorResponse`)
+         - completion: (`LookAtAchievedInfo`?, `ErrorResponse`?)
          */
         public func look(angle: CommandRequester.Expression.Angle, completion: LookAtClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -675,7 +675,7 @@ public class CommandRequester: CommandRequesterInterface {
          Make Jibo look at an entity (face/motion)
          - Parameters:
          - entity: Entity to look toward
-         - completion: (`LookAtAchievedInfo`, `ErrorResponse`)
+         - completion: (`LookAtAchievedInfo`?, `ErrorResponse`?)
          */
         public func look(entity: CommandRequester.Expression.Entity, completion: LookAtClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -693,7 +693,7 @@ public class CommandRequester: CommandRequesterInterface {
          Make Jibo turn at a 3D position
          - Parameters:
          - position: Position to look toward
-         - completion: (`LookAtAchievedInfo`, `ErrorResponse`)
+         - completion: (`LookAtAchievedInfo`?, `ErrorResponse`?)
          */
         public func look(position: CommandRequester.Expression.Position, completion: LookAtClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -711,7 +711,7 @@ public class CommandRequester: CommandRequesterInterface {
          Make Jibo turn at a 2D position
          - Parameters:
          - screenCoords: Coords to look toward
-         - completion: (`LookAtAchievedInfo`, `ErrorResponse`)
+         - completion: (`LookAtAchievedInfo`?, `ErrorResponse`?)
          */
         public func look(screenCoords: CommandRequester.Expression.ScreenCoords, completion: LookAtClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -729,7 +729,7 @@ public class CommandRequester: CommandRequesterInterface {
          Make Jibo say something or use [ESML](https://app-toolkit.jibo.com/esml/) to display emojis or animations
          - Parameters:
          - say: Text or ESML to say.
-         - completion: (`SayCompletedInfo`, `ErrorResponse`)
+         - completion: (`SayCompletedInfo`?, `ErrorResponse`?)
          */
         public func say(phrase: String, completion: SayClosure?) -> TransactionID? {
             let genericCallback = Callback(callback: completion)
@@ -823,7 +823,7 @@ public class CommandRequester: CommandRequesterInterface {
              - camera: Which camera to use. Default = left
              - resolution: Resolution of photo to take. Default = low.
              - distortion: `true` for regular lense. `false` for fisheye.
-             - completion: (`TakePhotoInfo`, `ErrorResponse`)
+             - completion: (`TakePhotoInfo`?, `ErrorResponse`?)
              */
             public func photo(camera: Camera,
                                   resolution: CameraResolution,

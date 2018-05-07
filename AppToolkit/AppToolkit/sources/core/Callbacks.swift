@@ -21,7 +21,7 @@ final class Callback<T> {
         self.callback = callback
     }
 }
-
+//MARK: Callback
 /// General callback info
 public class CallbackInfo {
     /// Error info for callback
@@ -175,7 +175,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
      for a diagram.
      */
     public struct HeadSensors: Mappable {
-        // :nodoc:
+        //// :nodoc:
         public init?(map: Map) {
             self.init(leftFront: false,
             leftMiddle: false,
@@ -184,7 +184,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
             rightMiddle: false,
             rightBack: false)
         }
-        // :nodoc:
+        /// :nodoc:
         public mutating func mapping(map: Map) {
             
             leftFront <- map["leftFront"]
@@ -194,7 +194,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
             rightMiddle <- map["rightMiddle"]
             rightBack <- map["rightBack"]
         }
-        // :nodoc:
+        /// :nodoc:
         init(leftFront: Bool,
              leftMiddle: Bool,
              leftBack: Bool,
@@ -320,33 +320,7 @@ public class TrackedEntityInfo: CallbackInfo, Mappable {
         self.tracks = tracks
     }
 }
-
-/**
- What Jibo heard
- */
-public struct SpeechInfo: Mappable {
-    /// :nodoc:
-    public init?(map: Map) {
-    }
-    /// :nodoc:
-    public mutating func mapping(map: Map) {
-        
-        speech <- map["speech"]
-        languageCode <- map["languageCode"]
-    }
-    /// :nodoc:
-    public init(speech: String?, languageCode: String?) {
-
-        self.speech = speech
-        self.languageCode = languageCode
-    }
-    
-    /// String of text Jibo parsed
-    public var speech: String?
-    /// Language of what Jibo heard. Currently only English is supported.
-    public var languageCode: String?
-}
-
+//MARK: Perception
 /**
  Location of something in Jibo's LPS system. Can be a face, motion, or other visual entity.
  */
@@ -375,6 +349,33 @@ public struct LPSPosition: Mappable {
     public var angleVector: Vector2?
     /// Jibo's confidence in his identification
     public var confidence: Double?
+}
+
+//MARK: Listening
+/**
+ What Jibo heard
+ */
+public struct SpeechInfo: Mappable {
+    /// :nodoc:
+    public init?(map: Map) {
+    }
+    /// :nodoc:
+    public mutating func mapping(map: Map) {
+        
+        speech <- map["speech"]
+        languageCode <- map["languageCode"]
+    }
+    /// :nodoc:
+    public init(speech: String?, languageCode: String?) {
+
+        self.speech = speech
+        self.languageCode = languageCode
+    }
+    
+    /// String of text Jibo parsed
+    public var speech: String?
+    /// Language of what Jibo heard. Currently only English is supported.
+    public var languageCode: String?
 }
 
 /**
@@ -449,6 +450,9 @@ public struct HotWordInfo: Mappable {
     /// :nodoc:
     public var speaker: Speaker?
 }
+//MARK: Extensions
+
+/// I can't get these to doc.
 
 /** This is an extension */
 extension AssetsProtocol {
