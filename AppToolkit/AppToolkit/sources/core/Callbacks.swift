@@ -271,7 +271,7 @@ public class ScreenGestureInfo: CallbackInfo, Mappable {
     override public init() {
     }
     
-    /// Info for the listen. See `ListenEntityProtocol`
+    /// Info returned about the screen gesture
     public var gesture: ScreenGestureEntityProtocol?
     
     /// Type of gesture

@@ -10,17 +10,18 @@ import Foundation
 import ObjectMapper
 
 
-/// :nodoc:
+/** Information returned from listening */
 public protocol ListenEntityProtocol {
-    /// Regular speech
+    /// String of what Jibo heard
     var speech: String? { get set }
+    /// Only US English supported
     var languageCode: String? { get set }
-    /// "Hey Jibo". Currently unsupported
+    /// ID of speaker, if available. Currently unsupported.
     var speaker: Speaker? { get set }
-    /// "Stop"
+    /// Currently unsupported.
     var reason: String? { get set }
 }
-
+/// :nodoc:
 class ListenEntity: ModelObject, ListenEntityProtocol {
     var speech: String?
     var languageCode: String?
