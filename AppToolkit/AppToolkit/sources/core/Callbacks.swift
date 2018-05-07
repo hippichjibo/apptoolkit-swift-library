@@ -238,7 +238,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
         
     /// Head touch sensor info
     public var headSensors: HeadSensors? = nil
-    /// :nodoc
+    /// :nodoc:
     public convenience init(_ sensors:[Bool]) {
         self.init()
         
