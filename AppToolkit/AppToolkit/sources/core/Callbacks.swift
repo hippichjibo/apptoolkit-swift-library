@@ -31,19 +31,20 @@ public class CallbackInfo {
 //MARK: Closure Info
 
 /**
- When Jibo achieves his `lookAt`.
+ `lookAtAchieved` event emitted. 
+ Jibo has achieved his lookat and returns the following informatio.
  */
 public class LookAtAchievedInfo: CallbackInfo {
     /// 3D base coordinate frame of the robot. See `Vector3`.
     public var positionTarget: Vector3?
     /// 2D current orientation of the robot, See `AngleVector`
     public var angleTarget: AngleVector?
-    // Emitted when Jibo has finished his `lookAt` command.
+    //// `lookAtAchieved` emitted when Jibo has finished his `lookAt` command.
     public var type: EventType = .undefined
 }
 
 /**
- When we get configuration info
+ Returned configuration info
  */
 public class GetConfigInfo: CallbackInfo, Mappable {
     /// :nodoc:
@@ -62,7 +63,8 @@ public class GetConfigInfo: CallbackInfo, Mappable {
 }
 
 /**
- When we set volume
+ `onConfig` event emitted.
+  Info returned after setting volume.
  */
 public class SetConfigInfo: CallbackInfo, Mappable {
     /// :nodoc:
@@ -82,7 +84,7 @@ public class SetConfigInfo: CallbackInfo, Mappable {
 }
 
 /**
- When Jibo finishes speaking 
+ Info returned hen Jibo finishes speaking/playing ESML. 
  */
 public class SayCompletedInfo: CallbackInfo {
     /// Emitted when Jibo has finished his `say` command.
@@ -90,7 +92,7 @@ public class SayCompletedInfo: CallbackInfo {
 }
 
 /** 
- When Jibo takes a photo
+ Info returned when `takePhoto` event is emitted
  */
 public class TakePhotoInfo: CallbackInfo {
     /// The image that was taken.
@@ -104,7 +106,8 @@ public class TakePhotoInfo: CallbackInfo {
 }
 
 /**
- When display changes
+ Info returned when display is changed and 
+ `viewStateChange` is emitted
  */
 public class DisplayInfo: CallbackInfo {
     /// Jibo's current display state. See `DisplayViewState`
@@ -112,7 +115,8 @@ public class DisplayInfo: CallbackInfo {
 }
 
 /** 
- When Jibo sees motion in his field of vision
+ Info returned when Jibo sees motions and 
+ `motionDetected` event is emitted
  */
 public class MotionInfo: CallbackInfo, Mappable {
     /// :nodoc:
@@ -132,7 +136,8 @@ public class MotionInfo: CallbackInfo, Mappable {
 }
 
 /**
- Jibo heard speech
+ Info returned when Jibo hears speech and
+ `listenResult` event is emitted.
  */
 public class ListenInfo: CallbackInfo, Mappable {
     /// :nodoc:
@@ -164,7 +169,8 @@ public class ListenInfo: CallbackInfo, Mappable {
 }
 
 /**
- Someone touched Jibo's head
+ Info returned when someone touches Jibo's head and
+ `headTouched` event is emitted.
  */
 public class HeadTouchInfo: CallbackInfo, Mappable {
     /**
@@ -249,7 +255,8 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
 }
 
 /**
- We got an asset
+ Info returned when we try to fetch an asset and
+ either `assetReady` or `assetFailed` event is emitted
  */
 public class FetchAssetInfo: CallbackInfo {
     /// Asset details
@@ -257,7 +264,8 @@ public class FetchAssetInfo: CallbackInfo {
 }
 
 /**
- Someone touched Jibo's scren
+ Info returned when somone touches Jibo's screen and
+ either `onScreenTap` or `onScreenSwipe` is emitted
  */
 public class ScreenGestureInfo: CallbackInfo, Mappable {
     /// :nodoc:
@@ -285,9 +293,7 @@ public class ScreenGestureInfo: CallbackInfo, Mappable {
     public var gestureType: ScreenGestureType?
 }
 
-/**
- Jibo tracked an entity.
- */
+/// :nodoc:
 public class TrackedEntityInfo: CallbackInfo, Mappable {
     /// :nodoc:
     public required init?(map: Map) {
