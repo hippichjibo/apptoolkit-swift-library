@@ -55,7 +55,7 @@ public enum EventType: String {
     case headTouched        = "onHeadTouch"
     
     // MARK: - Listen events
-    /// Jibo heard "Hey Jibo." Unsupported
+    /// Jibo heard "Hey Jibo." 
     case onHotWordHeard     = "onHotWordHeard"
     /// Jibo got a result back from listening
     case listenResult       = "onListenResult"
