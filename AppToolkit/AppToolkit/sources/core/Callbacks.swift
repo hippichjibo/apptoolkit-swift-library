@@ -437,7 +437,7 @@ public struct Speaker: Mappable {
 }
 
 /**
- Currently unsupported
+ Jibo heard "Hey Jibo" and `onHotWordHeard` event is emitted
  */
 public struct HotWordInfo: Mappable {
     /// :nodoc:
@@ -453,7 +453,7 @@ public struct HotWordInfo: Mappable {
         
         self.speaker = speaker
     }
-    /// :nodoc:
+    /// Speaker info
     public var speaker: Speaker?
 }
 //MARK: Extensions
