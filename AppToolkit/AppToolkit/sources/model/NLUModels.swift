@@ -12,13 +12,13 @@ import ObjectMapper
 /**
  * TODO: Listen Event is not supported yet. NLU Models may need to change.
  */
-
+/// :nodoc:
 struct NLUEntity {
     let name: String
     let value: [String]
     static let `default` = NLUEntity(name: "", value: [])
 }
-
+/// :nodoc:
 struct NLUEntityTransformer: TransformType {
     typealias Object = NLUEntity
     typealias JSON = [String: Any]
@@ -44,7 +44,7 @@ struct NLUEntityTransformer: TransformType {
         return nil
     }
 }
-
+/// :nodoc:
 struct NLUParse: Mappable {
     var confidence: Float
     var intent: String
@@ -62,7 +62,7 @@ struct NLUParse: Mappable {
         entity     <- (map["Entity"], NLUEntityTransformer())
     }
 }
-
+/// :nodoc:
 struct NLUResult: Mappable {
     var agent: String
     var parse: [NLUParse]

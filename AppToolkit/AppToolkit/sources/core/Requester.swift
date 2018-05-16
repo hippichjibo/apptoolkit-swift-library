@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 import ObjectMapper
-
+/// :nodoc:
 protocol CommandRequestProtocol {
     typealias CommandCallback = CommandRequesterInterface.CallbackClosure
 
@@ -40,12 +40,12 @@ protocol CommandRequestProtocol {
 
     func listenForScreenGesture(_ params: ScreenGestureListenParams, callback: CommandCallback?) -> CommandTransaction<Never>
 }
-
+/// :nodoc:
 struct CommandTransaction<T> {
     let transactionId: TransactionID?
     let tokenAcknowledged: Promise<T>
 }
-
+/// :nodoc:
 class Requester {
     fileprivate var appId: String? = ""
     fileprivate var sessionId: String? = nil
@@ -135,6 +135,7 @@ class Requester {
 }
 
 // MARK: - CommandRequester
+/// :nodoc:
 extension Requester: CommandRequestProtocol {
     func connect() -> Promise<Bool> {
         return Promise { [weak self] (fulfill, reject) in
@@ -421,6 +422,7 @@ extension Requester: CommandRequestProtocol {
 }
 
 // MARK: -
+/// :nodoc:
 extension Requester {
     
     // Handles messages from robot
@@ -461,7 +463,7 @@ extension Requester {
         }
     }
 }
-
+/// :nodoc:
 extension Requester {
     
     fileprivate func processCancel(_ transactionId: String? ) {

@@ -21,57 +21,60 @@ final class Callback<T> {
         self.callback = callback
     }
 }
-
-//MARK: Callback Info
+//MARK: Callback
 /// General callback info
 public class CallbackInfo {
     /// Error info for callback
     public var error: Error?
 }
 
+//MARK: Closure Info
+
 /**
- When Jibo achieves his `lookAt`.
+ `lookAtAchieved` event emitted. 
+ Jibo has achieved his lookat and returns the following informatio.
  */
 public class LookAtAchievedInfo: CallbackInfo {
     /// 3D base coordinate frame of the robot. See `Vector3`.
     public var positionTarget: Vector3?
     /// 2D current orientation of the robot, See `AngleVector`
     public var angleTarget: AngleVector?
-    // Emitted when Jibo has finished his `lookAt` command.
+    //// `lookAtAchieved` emitted when Jibo has finished his `lookAt` command.
     public var type: EventType = .undefined
 }
 
 /**
- When we get configuration info
+ Returned configuration info
  */
 public class GetConfigInfo: CallbackInfo, Mappable {
-    
+    /// :nodoc:
     public override init() {
     }
-    
+    /// :nodoc:
     public required init?(map: Map) {
     }
-    
+    /// :nodoc:
     public func mapping(map: Map) {
         info <- (map["info"], BasicProtocolTypeSerializationTransform<ModelObject, ConfigInfoProtocol>())
     }
     
-    /// Availble config info. See `ConfigInfoProtocol`
+    /// Availble config info.
     public var info: ConfigInfoProtocol? = nil
 }
 
 /**
- When we set volume
-*/
+ `onConfig` event emitted.
+  Info returned after setting volume.
+ */
 public class SetConfigInfo: CallbackInfo, Mappable {
-    
+    /// :nodoc:
     public override init() {
         super.init()
     }
-    
+    /// :nodoc:
     public required init?(map: Map) {
     }
-    
+    /// :nodoc:
     public func mapping(map: Map) {
         succeed <- map["succeed"]
     }
@@ -81,7 +84,7 @@ public class SetConfigInfo: CallbackInfo, Mappable {
 }
 
 /**
- When Jibo finishes speaking 
+ Info returned hen Jibo finishes speaking/playing ESML. 
  */
 public class SayCompletedInfo: CallbackInfo {
     /// Emitted when Jibo has finished his `say` command.
@@ -89,7 +92,7 @@ public class SayCompletedInfo: CallbackInfo {
 }
 
 /** 
- When Jibo takes a photo
+ Info returned when `takePhoto` event is emitted
  */
 public class TakePhotoInfo: CallbackInfo {
     /// The image that was taken.
@@ -103,7 +106,8 @@ public class TakePhotoInfo: CallbackInfo {
 }
 
 /**
- When display changes
+ Info returned when display is changed and 
+ `viewStateChange` is emitted
  */
 public class DisplayInfo: CallbackInfo {
     /// Jibo's current display state. See `DisplayViewState`
@@ -111,18 +115,18 @@ public class DisplayInfo: CallbackInfo {
 }
 
 /** 
- When Jibo sees motion in his field of vision
+ Info returned when Jibo sees motions and 
+ `motionDetected` event is emitted
  */
 public class MotionInfo: CallbackInfo, Mappable {
-    
+    /// :nodoc:
     public required init?(map: Map) {
     }
-    
+    /// :nodoc:
     public func mapping(map: Map) {
         motions <- (map["motions"], BasicProtocolTypeSerializationTransform<ModelObject, MotionEntityProtocol>())
     }
-    
-    
+    /// :nodoc:
     override public init() {
     }
     
@@ -132,17 +136,18 @@ public class MotionInfo: CallbackInfo, Mappable {
 }
 
 /**
- Jibo heard speech
+ Info returned when Jibo hears speech and
+ `listenResult` event is emitted.
  */
 public class ListenInfo: CallbackInfo, Mappable {
-    
+    /// :nodoc:
     public required init?(map: Map) {
     }
-    
+    /// :nodoc:
     public func mapping(map: Map) {
         listen <- (map["listen"], BasicProtocolTypeSerializationTransform<ModelObject, ListenEntityProtocol>())
     }
-    
+    /// :nodoc:
     override public init() {
     }
     
@@ -164,7 +169,8 @@ public class ListenInfo: CallbackInfo, Mappable {
 }
 
 /**
- Someone touched Jibo's head
+ Info returned when someone touches Jibo's head and
+ `headTouched` event is emitted.
  */
 public class HeadTouchInfo: CallbackInfo, Mappable {
     /**
@@ -175,7 +181,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
      for a diagram.
      */
     public struct HeadSensors: Mappable {
-        
+        /// :nodoc:
         public init?(map: Map) {
             self.init(leftFront: false,
             leftMiddle: false,
@@ -184,7 +190,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
             rightMiddle: false,
             rightBack: false)
         }
-        
+        /// :nodoc:
         public mutating func mapping(map: Map) {
             
             leftFront <- map["leftFront"]
@@ -194,7 +200,7 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
             rightMiddle <- map["rightMiddle"]
             rightBack <- map["rightBack"]
         }
-        
+        /// :nodoc:
         init(leftFront: Bool,
              leftMiddle: Bool,
              leftBack: Bool,
@@ -223,22 +229,22 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
         /// 5 `true` if right back sensor is touched
         public var rightBack: Bool
     }
-    
+    /// :nodoc:
     public required init?(map: Map) {
     }
-    
+    /// :nodoc:
     public func mapping(map: Map) {
         
         headSensors <- map["HeadSensors"]
     }
-
+    /// :nodoc:
     override public init() {
         super.init()
     }
         
     /// Head touch sensor info
     public var headSensors: HeadSensors? = nil
-    /// :nodoc
+    /// :nodoc:
     public convenience init(_ sensors:[Bool]) {
         self.init()
         
@@ -249,7 +255,8 @@ public class HeadTouchInfo: CallbackInfo, Mappable {
 }
 
 /**
- We got an asset
+ Info returned when we try to fetch an asset and
+ either `assetReady` or `assetFailed` event is emitted
  */
 public class FetchAssetInfo: CallbackInfo {
     /// Asset details
@@ -257,21 +264,22 @@ public class FetchAssetInfo: CallbackInfo {
 }
 
 /**
- Someone touched Jibo's scren
+ Info returned when somone touches Jibo's screen and
+ either `onScreenTap` or `onScreenSwipe` is emitted
  */
 public class ScreenGestureInfo: CallbackInfo, Mappable {
-    
+    /// :nodoc:
     public required init?(map: Map) {
     }
-    
+    /// :nodoc:
     public func mapping(map: Map) {
         gesture <- (map["gesture"], BasicProtocolTypeSerializationTransform<ModelObject, ScreenGestureEntityProtocol>())
     }
-    
+    /// :nodoc:
     override public init() {
     }
     
-    /// Info for the listen. See `ListenEntityProtocol`
+    /// Info returned about the screen gesture
     public var gesture: ScreenGestureEntityProtocol?
     
     /// Type of gesture
@@ -285,14 +293,12 @@ public class ScreenGestureInfo: CallbackInfo, Mappable {
     public var gestureType: ScreenGestureType?
 }
 
-/**
- Jibo tracked an entity.
- */
+/// :nodoc:
 public class TrackedEntityInfo: CallbackInfo, Mappable {
-    
+    /// :nodoc:
     public required init?(map: Map) {
     }
-    
+    /// :nodoc:
     public func mapping(map: Map) {
         
         type <- (map["type"], EnumTransform<EventType>())
@@ -310,7 +316,7 @@ public class TrackedEntityInfo: CallbackInfo, Mappable {
         
         self.type = type
     }
-    
+    /// :nodoc:
     public init(type: EventType,
                 tracks:[TrackedEntityProtocol]?) {
         
@@ -320,49 +326,22 @@ public class TrackedEntityInfo: CallbackInfo, Mappable {
         self.tracks = tracks
     }
 }
-
-//MARK: Speech
-/**
- What Jibo heard
- */
-public struct SpeechInfo: Mappable {
-    
-    public init?(map: Map) {
-    }
-    
-    public mutating func mapping(map: Map) {
-        
-        speech <- map["speech"]
-        languageCode <- map["languageCode"]
-    }
-    
-    public init(speech: String?, languageCode: String?) {
-
-        self.speech = speech
-        self.languageCode = languageCode
-    }
-    
-    /// String of text Jibo parsed
-    public var speech: String?
-    /// Language of what Jibo heard. Currently only English is supported.
-    public var languageCode: String?
-}
-
+//MARK: Perception
 /**
  Location of something in Jibo's LPS system. Can be a face, motion, or other visual entity.
  */
 public struct LPSPosition: Mappable {
-    
+    /// :nodoc:
     public init?(map: Map) {
     }
-    
+    /// :nodoc:
     public mutating func mapping(map: Map) {
         
         position <- (map["position"], Vector3Transformer())
         angleVector <- (map["angleVector"], Vector2Transformer())
         confidence <- map["confidence"]
     }
-    
+    /// :nodoc:
     public init(position: Vector3?, angleVector: Vector2?, confidence: Double?) {
         
         self.position = position
@@ -378,20 +357,47 @@ public struct LPSPosition: Mappable {
     public var confidence: Double?
 }
 
+//MARK: Listening
+/**
+ What Jibo heard
+ */
+public struct SpeechInfo: Mappable {
+    /// :nodoc:
+    public init?(map: Map) {
+    }
+    /// :nodoc:
+    public mutating func mapping(map: Map) {
+        
+        speech <- map["speech"]
+        languageCode <- map["languageCode"]
+    }
+    /// :nodoc:
+    public init(speech: String?, languageCode: String?) {
+
+        self.speech = speech
+        self.languageCode = languageCode
+    }
+    
+    /// String of text Jibo parsed
+    public var speech: String?
+    /// Language of what Jibo heard. Currently only English is supported.
+    public var languageCode: String?
+}
+
 /**
  Who was speaking
  */
 public struct SpeakerId: Mappable {
-    
+    /// :nodoc:
     public init?(map: Map) {
     }
-    
+    /// :nodoc:
     public mutating func mapping(map: Map) {
         
         type <- (map["type"], EnumTransform<EntityType>())
         confidence <- map["confidence"]
     }
-    
+    /// :nodoc:
     public init(type: EntityType?, confidence: Double?) {
         
         self.type = type
@@ -408,16 +414,16 @@ public struct SpeakerId: Mappable {
  Info on the speaker of what Jibo heard
  */
 public struct Speaker: Mappable {
-    
+    /// :nodoc:
     public init?(map: Map) {
     }
-    
+    /// :nodoc:
     public mutating func mapping(map: Map) {
         
         lpsPosition <- map["lpsPosition"]
         speakerID <- map["speakerID"]
     }
-
+    /// :nodoc:
     public init(lpsPosition: LPSPosition?, speakerID: SpeakerId?) {
         
         self.lpsPosition = lpsPosition
@@ -431,107 +437,103 @@ public struct Speaker: Mappable {
 }
 
 /**
- :nodoc:
+ Jibo heard "Hey Jibo" and `onHotWordHeard` event is emitted
  */
 public struct HotWordInfo: Mappable {
-    
+    /// :nodoc:
     public init?(map: Map) {
     }
-    
+    /// :nodoc:
     public mutating func mapping(map: Map) {
         
         speaker <- map["speaker"]
     }
-    
+    ///  :nodoc:
     public init(speaker: Speaker) {
         
         self.speaker = speaker
     }
-    
+    /// Speaker info
     public var speaker: Speaker?
 }
+//MARK: Extensions
 
+/// I can't get these to doc.
+
+/** This is an extension */
 extension AssetsProtocol {
-    /** FetchAsset closure
-     */
+    /* This is a closure */
     public typealias FetchAssetClosure = ((FetchAssetInfo?, ErrorResponse?) -> ())
 }
 
+/// Display closures
 extension DisplayProtocol {
     /** Display closure
      */
     public typealias DisplayClosure = ((DisplayInfo?, ErrorResponse?) -> ())
 }
 
+/**
+ Config closures
+ */
 extension ConfigProtocol {
-    /** Get Config closure
+    /**
+     Get Config closure
      */
     public typealias GetConfigClosure = ((GetConfigInfo?, ErrorResponse?) -> ())
     
-    /** Set Config closure
-     */
+    /** Set Config closure */
     public typealias SetConfigClosure = ((SetConfigInfo?, ErrorResponse?) -> ())
 }
 
+/// Subscribe closures
 extension SubscribeProtocol {
-    /** ScreenGesture closure
-     */
+    /** ScreenGesture closure */
     public typealias ScreenGestureClosure = ((ScreenGestureInfo?, ErrorResponse?) -> ())
-    /** Motion closure
-     */
+    /** Motion closure */
     public typealias MotionClosure = ((MotionInfo?, ErrorResponse?) -> ())
-    /** HeadTouch closure
-     */
+    /** HeadTouch closure */
     public typealias HeadTouchClosure = ((HeadTouchInfo?, ErrorResponse?) -> ())
-    /** TrackEntity closure
-     */
+    /** TrackEntity closure */
     public typealias TrackedEntityClosure = ((TrackedEntityInfo?, ErrorResponse?) -> ())
 }
 
+/// Listen closures
 extension ListenProtocol {
-    /** Listen closure
-     */
+    /** Listen closure */
     public typealias ListenClosure = ((ListenInfo?, ErrorResponse?) -> ())
 }
 
+/// Expression closures
 extension ExpressionProtocol {
-    /** Look At closure
-     */
+    /** Look At closure */
     public typealias LookAtClosure = ((LookAtAchievedInfo?, ErrorResponse?) -> ())
-    /** Say closure
-     */
+    /** Say closure */
     public typealias SayClosure = ((SayCompletedInfo?, ErrorResponse?) -> ())
 }
 
+/// Capture closures
 extension CaptureProtocol {
-    /** Take Video closure
-     */
+    /** Take Video closure */
     public typealias TakeVideoClosure = ((UIImage?, ErrorResponse?) -> ())
-    /** Take Photo closure
-     */
+    /** Take Photo closure */
     public typealias TakePhotoClosure = ((TakePhotoInfo?, ErrorResponse?) -> ())
 }
 
-//MARK: Main Library
 /**
- Main library for the Jibo Protocol
+ Closures for working with the robot
  */
 extension CommandRequesterInterface {
-    // MARK: - Closures
     /**
      Generic closure
      */
     public typealias CallbackClosure = ((Any?, ErrorResponse?) -> ())
     
-    
-    
     /** Robot closure
      */
     public typealias RobotClosure = ((Robot?, ErrorResponse?) -> ())
-
     
-
     /** Robot List closure
-    */
+     */
     public typealias RobotListClosure = (([RobotInfoProtocol]?, ErrorResponse?) -> ())
 }

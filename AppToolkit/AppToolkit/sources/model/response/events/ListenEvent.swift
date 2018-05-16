@@ -9,27 +9,19 @@
 import Foundation
 import ObjectMapper
 
-//MARK: Listen
-/**
- When Jibo listen to human speach and returns the text, or the Speaker object for "Hey, Jibo" command (not impemented jet)
- */
 
-/**
- Protocol for listen an entity
- */
+/** Information returned from listening */
 public protocol ListenEntityProtocol {
-    /// Regular speech
+    /// String of what Jibo heard
     var speech: String? { get set }
+    /// Only US English supported
     var languageCode: String? { get set }
-    /// "Hey Jibo". Currently unsupported
+    /// ID of speaker, if available. Currently unsupported.
     var speaker: Speaker? { get set }
-    /// "Stop"
+    /// Currently unsupported.
     var reason: String? { get set }
 }
-
-/**
- Entity for listen
- */
+/// :nodoc:
 class ListenEntity: ModelObject, ListenEntityProtocol {
     var speech: String?
     var languageCode: String?
@@ -45,9 +37,7 @@ class ListenEntity: ModelObject, ListenEntityProtocol {
     }
 }
 
-/**
- Base Listen event
- */
+/// :nodoc:
 class ListenEvent: BaseEvent {
     var listen: ListenEntity?
     
@@ -58,17 +48,13 @@ class ListenEvent: BaseEvent {
     }
 }
 
-/**
- Enum for listen stop reason
- */
+/// :nodoc:
 enum ListenStopReason: String {
     case maxNoSpeech = "maxNoSpeech"
     case maxSpeech = "maxSpeech"
 }
 
-/**
- Base Stop Listen event
- */
+/// :nodoc:
 class ListenStopEvent: BaseEvent {
     var stopReason: ListenStopReason?
 
@@ -87,9 +73,7 @@ class ListenStopEvent: BaseEvent {
     }
 }
 
-/**
- Base Listen result event
- */
+/// :nodoc:
 class ListenResultEvent: BaseEvent {
     var languageCode: String?
     var speech: String = ""
@@ -102,9 +86,7 @@ class ListenResultEvent: BaseEvent {
     }
 }
 
-/**
- Base Listen "HotWord" result event
- */
+/// :nodoc:
 class HotWordHeardEvent: BaseEvent {
     struct LPSPosition: Mappable {
         var position: Vector3?

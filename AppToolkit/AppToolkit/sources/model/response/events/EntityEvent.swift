@@ -9,11 +9,7 @@
 import Foundation
 import ObjectMapper
 
-//MARK: Tracking
-/**
- When Jibo sees an entity, it is either a face and is recognized as a loop member,
- or is unknown
- */
+/// :nodoc:
 public enum EntityType: String {
     /// Entity seen is a known loop member.
     case person = "person"
@@ -21,9 +17,7 @@ public enum EntityType: String {
     case unknown = "unknown"
 }
 
-/**
- Protocol for tracking an entity
- */
+/// :nodoc:
 public protocol TrackedEntityProtocol {
     /// ID of the entity
     var entityId: Int { get set }

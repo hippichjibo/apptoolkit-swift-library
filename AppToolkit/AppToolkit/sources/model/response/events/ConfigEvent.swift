@@ -9,6 +9,7 @@
 import Foundation
 import ObjectMapper
 
+/// :nodoc:
 class ConfigEvent: BaseEvent {
     var battery: Battery?
     var wifi: WiFi?

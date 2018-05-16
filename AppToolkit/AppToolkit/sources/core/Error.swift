@@ -17,7 +17,7 @@ public protocol ErrorStatusCode {
 
 //MARK: - Errors
 /**  
- Errors received from ROM API calls 
+ Errors received from Command API calls 
  */
 public enum ApiError: Error, ErrorStatusCode {
     /// 1001
@@ -65,7 +65,7 @@ public enum ApiError: Error, ErrorStatusCode {
     
 }
 
-/// Errors received from ROM commands
+/// Errors received from commands
 public enum CommandError: Error, ErrorStatusCode {
     /// 1011
     case commandFailedInit

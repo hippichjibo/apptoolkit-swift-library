@@ -24,9 +24,7 @@ public protocol BatteryProtocol: Mappable {
     var chargeRate: Double? { get set }
 }
 
-/**
- Robot battery model object.
- */
+/// :nodoc:
 public class Battery: ModelObject, BatteryProtocol {
     public var settable: Bool?
     public var capacity: Double?
@@ -51,9 +49,7 @@ public protocol WiFiProtocol {
     var settable: Bool? { get set }
 }
 
-/** 
- Robot wifi model object.
- */
+/// :nodoc:
 public class WiFi: ModelObject, WiFiProtocol {
     public var strength: Double?
     public var settable: Bool?
@@ -75,9 +71,7 @@ public protocol MixersProtocol {
     var settable: Bool? { get set }
 }
 
-/**
- Robot mixer model object.
- */
+/// :nodoc:
 public class Mixers: ModelObject, MixersProtocol {
     public var master: Double?
     public var settable: Bool?
@@ -98,9 +92,7 @@ public protocol PositionProtocol {
     var anglePosition: AngleVector? { get set }
 }
 
-/**
- Robot position model object.
- */
+/// :nodoc:
 public class Position: ModelObject, PositionProtocol {
     public var worldPosition: Vector3?
     public var anglePosition: AngleVector?
@@ -119,9 +111,7 @@ public protocol SetConfigOptionsProtocol {
     var mixer: Double? { get set }
 }
 
-/**
- Robot configuration setter model object.
- */
+/// :nodoc:
 public class SetConfigOptions: ModelObject, SetConfigOptionsProtocol {
     public var mixer: Double?
     
@@ -144,9 +134,7 @@ public protocol ConfigInfoProtocol {
     var mixers: MixersProtocol? { get set }
 }
 
-/**
- Robot configuration model object.
- */
+/// :nodoc:
 public class ConfigInfo: ModelObject, ConfigInfoProtocol {
     public var battery: BatteryProtocol?
     public var wifi: WiFiProtocol?

@@ -21,21 +21,20 @@ public enum EventType: String {
     /// async event
     case asyncError         = "onError"
 
-    // MARK: - Entity Events
-    /// Entity being tracked moved
+    /// :nodoc:
     case trackUpdate        = "onEntityUpdate"
-    /// Lost entity being tracked 
+    /// :nodoc:
     case trackLost          = "onEntityLost"
-    /// Found an entity to track
+    /// :nodoc:
     case trackGained        = "onEntityGained"
 
-    // MARK: - LookAt Events
+    // MARK: - Expression events
     /// Jibo looked at the spot he was told to look at
     case lookAtAchieved     = "onLookAtAchieved"
-    /// Lost person being tracked
+    /// :nodoc:
     case trackEntityLost    = "onTrackEntityLost"
 
-    // MARK: - Other Events
+    // MARK: - Media events
     /// URL to video is ready to stream
     case videoReady         = "onVideoReady"
     /// Emitted when a photo is taken
@@ -44,24 +43,26 @@ public enum EventType: String {
     // MARK: - Display events
     /// View state has changed
     case viewStateChange    = "onViewStateChange"
+    /// Jibo's screen was tapped
+    case onScreenTap        = "onTap"
+    /// Jibo's screen was swiped
+    case onScreenSwipe      = "onSwipe"
     
-    // MARK: - Motion events
+    // MARK: - Perception events
     /// Jibo detected movement.
     case motionDetected     = "onMotionDetected"
-
-    // MARK: - HeadTouch events
     /// Jibo received a head touch.
     case headTouched        = "onHeadTouch"
     
     // MARK: - Listen events
-    /// Jibo heard "Hey Jibo." Unsupported
+    /// Jibo heard "Hey Jibo." 
     case onHotWordHeard     = "onHotWordHeard"
     /// Jibo got a result back from listening
     case listenResult       = "onListenResult"
     /// Jibo stopped listening
     case listenStop         = "onListenStop"
 
-    // MARK: - FetchAsset events
+    // MARK: - Asset events
     /// The asset is ready to display
     case assetReady         = "onAssetReady"
     /// The asset could not be fetched
@@ -70,11 +71,5 @@ public enum EventType: String {
     // MARK: - Config events
     /// A configuration option changed.
     case onConfig           = "onConfig"
-    
-    // MARK: - Screen gesture events
-    /// Jibo's screen was tapped
-    case onScreenTap        = "onTap"
-    /// Jibo's screen was swiped
-    case onScreenSwipe      = "onSwipe"
 
 }
