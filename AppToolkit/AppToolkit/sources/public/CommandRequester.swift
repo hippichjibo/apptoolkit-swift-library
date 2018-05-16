@@ -830,8 +830,9 @@ public class CommandRequester: CommandRequesterInterface {
                                   distortion: Bool,
                                   completion: TakePhotoClosure?) -> TransactionID? {
                 
-                let closure: ((URIBasedInfo?, ErrorResponse?) -> ()) = { [weak self] (value, error) in
-                    guard let sself = self, let robot = sself.requester.connectionPolicyManager.currentRobot, let photo = value, let uri = photo.uri else {
+                let closure: ((URIBasedInfo?, ErrorResponse?) -> ()) = {  (value, error) in
+                     let sself = self
+                     guard let robot = sself.requester.connectionPolicyManager.currentRobot, let photo = value, let uri = photo.uri else {
                         completion?(nil, error)
                         return
                     }
