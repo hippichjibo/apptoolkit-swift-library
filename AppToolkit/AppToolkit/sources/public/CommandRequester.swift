@@ -781,8 +781,9 @@ public class CommandRequester: CommandRequesterInterface {
                                   duration: TimeInterval,
                                   completion: TakeVideoClosure?) -> TransactionID? {
                 
-                let closure: ((URIBasedInfo?, ErrorResponse?) -> ()) = { [weak self] (value, error) in
-                    guard let sself = self, let robot = sself.requester.connectionPolicyManager.currentRobot, let video = value, let uri = video.uri else {
+                let closure: ((URIBasedInfo?, ErrorResponse?) -> ()) = {  (value, error) in
+                     let sself = self
+                     guard let robot = sself.requester.connectionPolicyManager.currentRobot, let video = value, let uri = video.uri else {
                         completion?(nil, error)
                         return
                     }
