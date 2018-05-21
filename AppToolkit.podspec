@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "AppToolkit"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "App Toolkit library for iOS/swift"
 
   # This description is used to generate tags and improve search results.
@@ -29,8 +29,6 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/jiborobot/apptoolkit-swift-library"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
-
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -39,9 +37,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-
   s.license      = { :type => "BSD", :file => "LICENSE.md" }
-
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -54,9 +50,6 @@ Pod::Spec.new do |s|
   #
 
   s.author             = { "calvin.park" => "calvin.park@jibo.com" }
-  # Or just: s.author    = "calvin.park"
-  # s.authors            = { "calvin.park" => "calvin.park@jibo.com" }
-  # s.social_media_url   = "http://twitter.com/calvin.park"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -64,17 +57,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
-  # s.platform     = :ios, "5.0"
-
   s.platform     = :ios, '9.0'
-
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
-  # s.tvos.deployment_target = "9.0"
-
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -93,37 +76,6 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "AppToolkit/AppToolkit/**/*"
-  #s.resources =  ['Pod/Assets/ApiDefinitions/*', 'Pod/Assets/Configs/*'  ]
-
-  # s.public_header_files = "Classes/**/*.h"
-
-
-  # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  A list of resources included with the Pod. These are copied into the
-  #  target bundle with a build phase script. Anything else will be cleaned.
-  #  You can preserve files from being cleaned, please don't preserve
-  #  non-essential files like tests, examples and documentation.
-  #
-
-  # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
-
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
-
-
-  # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Link your library with frameworks, or libraries. Libraries do not include
-  #  the lib prefix of their name.
-  #
-
-  # s.framework  = "SomeFramework"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
-
-  # s.library   = "iconv"
-  # s.libraries = "iconv", "xml2"
-
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -133,17 +85,15 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.preserve_paths = 'AppToolkit/AppToolkit/metadata/CommonCryptoModuleMap/**/*'
-    s.dependency 'Alamofire', '4.6.0'
-    s.dependency 'OAuthSwift', '1.1.2'
-    s.dependency 'ObjectMapper', '3.1.0'
-    s.dependency 'PromiseKit', '4.5.2'
-    s.dependency 'ReactiveCocoa', '7.1.0'
-    s.dependency 'KeychainAccess', '~> 3.1.0'
-    s.dependency 'AlamofireObjectMapper', '~> 5.0'
-    s.dependency 'ReachabilitySwift', '4.1.0'
-    s.dependency 'CommonCryptoModule', '1.0.2'
-    s.dependency 'Starscream', '~> 3.0.3.1'
+  s.dependency 'Alamofire', '4.6.0'
+  s.dependency 'OAuthSwift', '1.1.2'
+  s.dependency 'ObjectMapper', '3.1.0'
+  s.dependency 'PromiseKit', '4.5.2'
+  s.dependency 'ReactiveCocoa', '7.1.0'
+  s.dependency 'KeychainAccess', '~> 3.1.0'
+  s.dependency 'AlamofireObjectMapper', '~> 5.0'
+  s.dependency 'ReachabilitySwift', '4.1.0'
+  s.dependency 'CommonCryptoModule', '1.0.2'
+  s.dependency 'Starscream', '~> 3.0.3.1'
 
 end

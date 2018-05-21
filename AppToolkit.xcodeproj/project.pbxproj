@@ -1530,6 +1530,7 @@
 			baseConfigurationReference = 77C178A456A80CC40C9030C5 /* Pods-AppToolkit.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 0.0.5;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = D3CV62U3DC;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1556,6 +1557,7 @@
 			baseConfigurationReference = 9BE2FB0C2153B69BE186214F /* Pods-AppToolkit.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 0.0.5;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = D3CV62U3DC;
 				DYLIB_COMPATIBILITY_VERSION = 1;
