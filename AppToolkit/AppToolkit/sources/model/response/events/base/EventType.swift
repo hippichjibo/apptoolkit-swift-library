@@ -13,7 +13,7 @@ import Foundation
 public enum EventType: String {
     case undefined  = ""
 
-    // MARK: - Async Events
+    // MARK: - Async events
     /// async event
     case asyncStart         = "onStart"
     /// async event
@@ -21,17 +21,10 @@ public enum EventType: String {
     /// async event
     case asyncError         = "onError"
 
-    /// :nodoc:
-    case trackUpdate        = "onEntityUpdate"
-    /// :nodoc:
-    case trackLost          = "onEntityLost"
-    /// :nodoc:
-    case trackGained        = "onEntityGained"
-
     // MARK: - Expression events
     /// Jibo looked at the spot he was told to look at
     case lookAtAchieved     = "onLookAtAchieved"
-    /// :nodoc:
+    /// Jibo lost the face he was trying to look at
     case trackEntityLost    = "onTrackEntityLost"
 
     // MARK: - Media events
@@ -49,6 +42,12 @@ public enum EventType: String {
     case onScreenSwipe      = "onSwipe"
     
     // MARK: - Perception events
+    /// Face detection was updated
+    case trackUpdate        = "onEntityUpdate"
+    /// Face was lost
+    case trackLost          = "onEntityLost"
+    /// New face found
+    case trackGained        = "onEntityGained"
     /// Jibo detected movement.
     case motionDetected     = "onMotionDetected"
     /// Jibo received a head touch.

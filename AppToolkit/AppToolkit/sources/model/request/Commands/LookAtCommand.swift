@@ -21,7 +21,7 @@ public enum LookAtTargetType {
 	case angle(angle: AngleVector)
 	/// 2D coordinates on Jibo's screen
 	case screenCoords(screenCoords: Vector2)
-	/// A face in Jibo's field of vision. Currently unsupported.
+	/// A face in Jibo's field of vision
 	case entity(entity: LookAtEntity)
 }
 

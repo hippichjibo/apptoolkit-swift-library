@@ -8,13 +8,16 @@
 
 import Foundation
 
-enum AttentionMode: String {
+//MARK: Attention
+
+/** Enum of attention modes */
+public enum AttentionMode: String {
     case off = "OFF"
     case idle = "IDLE"
     case disengage = "DISENGAGE"
     case engaged = "ENGAGED"
     case speaking = "SPEAKING"
-    case Fixatedf = "FIXATED"
+    case fixated = "FIXATED"
     case attractable = "ATTRACTABLE"
     case menu = "MENU"
     case command = "COMMAND"

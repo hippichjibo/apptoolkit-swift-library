@@ -234,9 +234,7 @@ public class CommandRequester: CommandRequesterInterface {
     
     
     /**
-     Protocol for modifying Jibo's attention settings
-     
-     Currently unsupported
+     Protocol for modifying Jibo's attention mode
      */
     public class Attention: AttentionProtocol {
         
@@ -248,7 +246,7 @@ public class CommandRequester: CommandRequesterInterface {
             self.requester = requester
         }
         
-        /** Currently unsupported */
+        /** Set jibo's attention mode*/
         public func set(){
         }
     }
@@ -494,9 +492,10 @@ public class CommandRequester: CommandRequesterInterface {
                 self.requester = requester
             }
             
-            /** Track faces in Jibo's perceptual space.
- 
-             Currently unsupported
+            /** 
+             Subscribe to face-detection events
+             - Parameters:
+             - completion : (`TrackedEntityInfo`?, `ErrorResponse`?)
              */
             public func face(completion: TrackedEntityClosure?) -> TransactionID? {
                 let genericCallback = Callback(callback: completion)
@@ -510,7 +509,7 @@ public class CommandRequester: CommandRequesterInterface {
             }
             
             /**
-             Track motion in Jibo's perceptual space
+             Subscribe to motion-detection events
              - Parameters:
              - completion: (`MotionInfo`?, `ErrorResponse`?)
              */
@@ -604,7 +603,7 @@ public class CommandRequester: CommandRequesterInterface {
             }
         }
         /**
-         Data object for Entity information
+         Data object for looking at a face
          */
         public struct Entity {
             /** Currently unsupported */

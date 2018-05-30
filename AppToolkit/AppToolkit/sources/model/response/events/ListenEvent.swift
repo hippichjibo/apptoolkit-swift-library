@@ -16,7 +16,7 @@ public protocol ListenEntityProtocol {
     var speech: String? { get set }
     /// Only US English supported
     var languageCode: String? { get set }
-    /// ID of speaker, if available. Currently unsupported.
+    /// ID of speaker, if available.
     var speaker: Speaker? { get set }
     /// Currently unsupported.
     var reason: String? { get set }

@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-/// :nodoc:
+/// Type of face seen
 public enum EntityType: String {
     /// Entity seen is a known loop member.
     case person = "person"
@@ -17,9 +17,9 @@ public enum EntityType: String {
     case unknown = "unknown"
 }
 
-/// :nodoc:
+/// Information on face detection
 public protocol TrackedEntityProtocol {
-    /// ID of the entity
+    /// ID of the  (face)
     var entityId: Int { get set }
     /// What kind of entity Jibo saw
     var type: EntityType { get set }

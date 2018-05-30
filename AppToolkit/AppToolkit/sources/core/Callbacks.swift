@@ -158,7 +158,7 @@ public class ListenInfo: CallbackInfo, Mappable {
     public enum ListenType {
         /// Regular speech
         case speech(speech: SpeechInfo)
-        /// "Hey Jibo". Currently unsupported
+        /// "Hey Jibo"
         case hotWord(hotWord: HotWordInfo)
         /// "Stop"
         case stop(reason: String)
@@ -293,7 +293,7 @@ public class ScreenGestureInfo: CallbackInfo, Mappable {
     public var gestureType: ScreenGestureType?
 }
 
-/// :nodoc:
+/// Info returned when Jibo sees a face. Please note that this does not actuall track faces.
 public class TrackedEntityInfo: CallbackInfo, Mappable {
     /// :nodoc:
     public required init?(map: Map) {
@@ -305,9 +305,9 @@ public class TrackedEntityInfo: CallbackInfo, Mappable {
         tracks <- (map["tracks"], BasicProtocolTypeSerializationTransform<ModelObject, TrackedEntityProtocol>())
     }
     
-    /// event emitted on track
+    /// Event emitted on face detection
     public var type: EventType?
-    /// track Jibo saw
+    /// Faces Jibo saw
     public var tracks: [TrackedEntityProtocol]?
     /// :nodoc:
     public init(type: EventType) {
@@ -458,7 +458,6 @@ public struct HotWordInfo: Mappable {
 }
 //MARK: Extensions
 
-/// I can't get these to doc.
 
 /** This is an extension */
 extension AssetsProtocol {

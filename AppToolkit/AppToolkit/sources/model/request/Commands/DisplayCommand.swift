@@ -52,7 +52,7 @@ public struct ImageData {
     public var name: String
     /// URL to the image
     public var source: String
-    /// unsupported
+    /// Name of set of assets to add this one to
     public var set: String?
     /// :nodoc:
     public init(_ name: String, source: String, set: String? = nil) {
